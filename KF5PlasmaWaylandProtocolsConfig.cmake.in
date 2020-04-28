@@ -1,0 +1,5 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+set(PLASMA_WAYLAND_PROTOCOLS_DIR ${KDE_INSTALL_FULL_DATAROOTDIR}/plasma-wayland-protocols)
