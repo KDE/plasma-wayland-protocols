@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<protocol name="zkde_screencast_unstable_v1">
+  <copyright><![CDATA[
+      SPDX-FileCopyrightText: 2020 Aleix Pol Gonzalez <aleixpol@kde.org>
+
+    SPDX-License-Identifier: LGPL-2.1-or-later
+  ]]></copyright>
+    <interface name="zkde_screencast_unstable_v1" version="1">
+        <description summary="Protocol for managing Pipewire feeds of the different displays and windows."/>
+
+        <enum name="source_type">
+            <description summary="describes enabled state, follows org.freedesktop.impl.portal.ScreenCast.xml"/>
+            <entry name="monitor" value="1"/>
+            <entry name="window" value="2"/>
+        </enum>
+        <event name="add_source">
+            <description summary="Notifies about a feed being created"/>
+            <arg name="source" type="uint" summary="the source identifier"/>
+            <arg name="description" type="string" summary="human readable text defining what the source is"/>
+            <arg name="icon_name" type="string" summary="icon name that defines the source (e.g. computer-laptop, window, tv)"/>
+            <arg name="type" type="uint" summary="if it's a composited output (e.g a display) or a window instead"/>
+            <arg name="geometry_x" type="int" summary="geometry.x"/>
+            <arg name="geometry_y" type="int" summary="geometry.y"/>
+            <arg name="geometry_width" type="int" summary="geometry.width. Logical width, to place the source on the workspace."/>
+            <arg name="geometry_height" type="int" summary="geometry.height. Logical height, to place the source on the workspace."/>
+            <arg name="width" type="int" summary="geometry.width. Width the buffer will have once created."/>
+            <arg name="height" type="int" summary="geometry.height. Height the buffer will have once created."/>
+        </event>
+        <event name="remove_source">
+            <description summary="Notifies about a source becoming unavailable"/>
+            <arg name="source" type="uint" summary="the source identifier"/>
+        </event>
+
+        <event name="done">
+            <description summary="Notifies that the initial propagation of sources is over"/>
+        </event>
+
+        <request name="create">
+            <description summary="requests a feed from a given source"/>
+            <arg name="source" type="uint"/>
+            <arg name="stream" type="new_id" interface="zkde_screencast_stream_unstable_v1"/>
+        </request>
+
+        <request name="destroy" type="destructor">
+            <description summary="Destroy the zkde_screencast_unstable_v1">
+            Destroy the zkde_screencast_unstable_v1 object. Also disables all zkde_screencast_stream_unstable_v1 issued through this this object.
+            </description>
+        </request>
+    </interface>
+
+    <interface name="zkde_screencast_stream_unstable_v1" version="1">
+        <request name="close">
+            <description summary="requests closing a pipewire buffer"/>
+        </request>
+        <event name="closed">
+            <description summary="notifies about being done with the pipewire buffer"/>
+        </event>
+
+        <event name="created">
+            <description summary="Notifies about a pipewire feed being created"/>
+            <arg name="node" type="uint" summary="node of the pipewire buffer"/>
+        </event>
+        <event name="failed">
+            <description summary="Offers an error message so the client knows created will not arrive"/>
+            <arg name="error" type="string" summary="error message"/>
+        </event>
+    </interface>
+</protocol>
