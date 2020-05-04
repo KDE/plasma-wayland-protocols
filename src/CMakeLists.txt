@@ -13,6 +13,7 @@ install(FILES
     protocols/plasma-virtual-desktop.xml
     protocols/plasma-window-management.xml
     protocols/remote-access.xml
+    protocols/screencast.xml
     protocols/server-decoration-palette.xml
     protocols/server-decoration.xml
     protocols/shadow.xml
