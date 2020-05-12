@@ -9,7 +9,6 @@ install(FILES
     protocols/keystate.xml
     protocols/outputdevice.xml
     protocols/output-management.xml
-    protocols/plasma-effects.xml
     protocols/plasma-shell.xml
     protocols/plasma-virtual-desktop.xml
     protocols/plasma-window-management.xml
