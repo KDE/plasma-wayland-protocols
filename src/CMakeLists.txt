@@ -1,6 +1,7 @@
 install(FILES
     protocols/appmenu.xml
-    protocols/blur.xml
+    protocols/blur.xml # deprecated
+    protocols/blur-unstable-v1.xml
     protocols/contrast.xml
     protocols/dpms.xml
     protocols/fake-input.xml
