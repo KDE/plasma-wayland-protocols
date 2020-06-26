@@ -2,4 +2,4 @@
 
 include(CMakeFindDependencyMacro)
 
-set(PLASMA_WAYLAND_PROTOCOLS_DIR ${KDE_INSTALL_FULL_DATAROOTDIR}/plasma-wayland-protocols)
+set(PLASMA_WAYLAND_PROTOCOLS_DIR "@PACKAGE_KDE_INSTALL_DATADIR@/plasma-wayland-protocols")
