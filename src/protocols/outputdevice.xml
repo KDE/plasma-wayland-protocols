@@ -5,6 +5,7 @@
         SPDX-FileCopyrightText: 2010-2011 Intel Corporation
         SPDX-FileCopyrightText: 2012-2013 Collabora, Ltd.
         SPDX-FileCopyrightText: 2015 Sebastian Kügler <sebas@kde.org>
+        SPDX-FileCopyrightText: 2021 Méven Car <meven.car@enioka.com>
 
         SPDX-License-Identifier: MIT-CMU
         ]]></copyright>
@@ -91,16 +92,13 @@
              summary="transform that maps framebuffer to output"/>
     </event>
 
-    <enum name="mode">
-        <description summary="mode information">
-            These flags describe properties of an output mode. They are
-            used in the flags bitfield of the mode event.
-        </description>
-        <entry name="current" value="0x1"
-                summary="indicates this is the current mode"/>
-        <entry name="preferred" value="0x2"
-                summary="indicates this is the preferred mode"/>
-    </enum>
+    <event name="current_mode">
+      <description summary="current mode">
+        This event describes the mode currently in use for this head. It is only
+        sent if the output is enabled.
+      </description>
+      <arg name="mode" type="object" interface="org_kde_kwin_outputdevice_mode"/>
+    </event>
 
     <event name="mode">
         <description summary="advertise available output modes and current one">
@@ -112,10 +110,10 @@
             There will always be at least one event sent out on initial binding,
             which represents the current mode.
 
-            Later on if an output changes its mode the event is sent again, whereby
-            this event represents the mode that has now become current. In other
-            words, the current mode is always represented by the latest event sent
-            with the current flag set.
+            Later if an output changes, its mode event is sent again for the
+            eventual added modes and lastly the current mode. In other words, the
+            current mode is always represented by the latest event sent with the current
+            flag set.
 
             The size of a mode is given in physical hardware units of the output device.
             This is not necessarily the same as the output size in the global compositor
@@ -123,14 +121,10 @@
             org_kde_kwin_outputdevice.scale, or transformed, as described in
             org_kde_kwin_outputdevice.transform.
 
-            The id can be used to refer to a mode when calling set_mode on an
-            org_kde_kwin_outputconfiguration object.
         </description>
-        <arg name="flags" type="uint" summary="bitfield of mode flags"/>
-        <arg name="width" type="int" summary="width of the mode in hardware units"/>
-        <arg name="height" type="int" summary="height of the mode in hardware units"/>
-        <arg name="refresh" type="int" summary="vertical refresh rate in mHz"/>
-        <arg name="mode_id" type="int" summary="Per outputdevice unique id to identify a mode"/>
+        
+        <arg name="mode" type="new_id" interface="org_kde_kwin_outputdevice_mode"/>
+
     </event>
 
     <event name="done">
@@ -296,6 +290,50 @@
 
 </interface>
 
+<interface name="org_kde_kwin_outputdevice_mode" version="3">
+  <description summary="output mode">
+    This object describes an output mode.
 
+    Some heads don't support output modes, in which case modes won't be
+    advertised.
+
+    Properties sent via this interface are applied atomically via the
+    org_kde_kwin_outputdevice.done event. No guarantees are made regarding the order
+    in which properties are sent.
+  </description>
+
+  <event name="size">
+    <description summary="mode size">
+      This event describes the mode size. The size is given in physical
+      hardware units of the output device. This is not necessarily the same as
+      the output size in the global compositor space. For instance, the output
+      may be scaled or transformed.
+    </description>
+    <arg name="width" type="int" summary="width of the mode in hardware units"/>
+    <arg name="height" type="int" summary="height of the mode in hardware units"/>
+  </event>
+
+  <event name="refresh">
+    <description summary="mode refresh rate">
+      This event describes the mode's fixed vertical refresh rate. It is only
+      sent if the mode has a fixed refresh rate.
+    </description>
+    <arg name="refresh" type="int" summary="vertical refresh rate in mHz"/>
+  </event>
+
+  <event name="preferred">
+    <description summary="mode is preferred">
+      This event advertises this mode as preferred.
+    </description>
+  </event>
+
+  <event name="removed">
+    <description summary="the mode has been destroyed">
+      The compositor will destroy the object immediately after sending this
+      event, so it will become invalid and the client should release any
+      resources associated with it.
+    </description>
+  </event>
+</interface>
 
 </protocol>

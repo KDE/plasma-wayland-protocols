@@ -24,7 +24,7 @@
     --------------------------
     requests:
     * enable(outputdevice, bool)
-    * mode(outputdevice, mode_id)
+    * mode(outputdevice, mode)
     * transformation(outputdevice, flag)
     * position(outputdevice, x, y)
     * apply
@@ -90,7 +90,7 @@
             Sets the mode for a given output by its mode size (width and height) and refresh rate.
         </description>
         <arg name="outputdevice" type="object" interface="org_kde_kwin_outputdevice" summary="outputdevice this mode change applies to"/>
-        <arg name="mode_id" type="int" summary="aspired mode's id"/>
+        <arg name="mode" type="object" interface="org_kde_kwin_outputdevice_mode" summary="the mode to apply"/>
     </request>
 
     <request name="transform">
@@ -120,7 +120,7 @@
         <description summary="set scaling factor of this output">
             Sets the scaling factor for this output device.
         </description>
-        <arg name="outputdevice" type="object" interface="org_kde_kwin_outputdevice" summary="outputdevice this mode change applies to"/>
+        <arg name="outputdevice" type="object" interface="org_kde_kwin_outputdevice" summary="outputdevice this scale change applies to"/>
         <arg name="scale" type="int" summary="scaling factor"/>
     </request>
 
