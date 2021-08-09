@@ -22,5 +22,6 @@ install(FILES
     protocols/text-input-unstable-v2.xml
     protocols/text-input.xml
     protocols/wayland-eglstream-controller.xml
+    protocols/gpu-management.xml
 
     DESTINATION ${KDE_INSTALL_DATADIR}/plasma-wayland-protocols)

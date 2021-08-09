@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<protocol name="org_kde_kwin_gpu_management">
+    <copyright><![CDATA[
+        SPDX-FileCopyrightText: 2021 Xaver Hugl <xaver.hugl@gmail.com>
+
+        SPDX-License-Identifier: LGPL-2.1-or-later
+    ]]></copyright>
+
+    <interface name="org_kde_kwin_gpu_management" version="1">
+        <description summary="GPU management">
+            A gpu represents a physical or virtual grahpics processing unit
+            that can be used for compositing.
+
+            This object is published as global during start up. When it is
+            bound the compositor will send information about gpus, divided
+            by the gpu_done event and ended by the done event.
+        </description>
+
+        <event name="identifier">
+            <description summary="unique identifier">
+                A unique identifier for a gpu that is persistent between
+                sessions.
+            </description>
+            <arg name="identifier" type="string" summary="unique identifier"/>
+        </event>
+
+        <event name="name">
+            <description summary="name">
+                A human-readable name for a gpu. This will not change for the
+                duration of the session but is not guaranteed to be consistent
+                between sessions
+            </description>
+            <arg name="name" type="string" summary="name"/>
+        </event>
+
+        <enum name="usage" bitfield="true">
+            <description summary="describes how the compositor uses a gpu"/>
+            <entry name="active_compositing" value="1"
+                   summary="this gpu is currently used for compositing"/>
+            <entry name="preferred_compositing" value="2"
+                   summary="this gpu will be switched to when possible"/>
+            <entry name="fd" value="4"
+                   summary="the compositor has a fd for this gpu open"/>
+        </enum>
+
+        <event name="usage">
+            <description summary="usage flags"/>
+            <arg name="flags" type="uint" enum="usage"/>
+        </event>
+
+        <event name="gpu_done">
+            <description summary="sent all information about a gpu"/>
+        </event>
+
+        <event name="done">
+            <description summary="sent all information">
+                This event is sent after the last gpu has been sent.
+            </description>
+        </event>
+
+        <request name="release_fd">
+            <description summary="close the gpu file descriptor">
+                This request suggests the compositor to release all resources
+                tied to the gpu described by the unique identifier, like outputs
+                or buffers, close the file descriptor and not open the device
+                again until a udev add event for it gets received.
+            </description>
+            <arg name="identifier" type="string" summary="unique identifier"/>
+        </request>
+
+        <request name="switch_compositing">
+            <description summary="prefer a gpu for compositing">
+                This request suggests the compositor to switch to the gpu
+                described by the unique identifier for compositing.
+            </description>
+            <arg name="identifier" type="string" summary="unique identifier"/>
+        </request>
+
+        <request name="destroy" type="destructor">
+            <description summary="release the gpu management object"/>
+        </request>
+    </interface>
+</protocol>
