@@ -188,7 +188,7 @@
     <description summary="RGB range">
       Whether full or limited color range should be used
     </description>
-    <arg name="outputdevice" type="object" interface="org_kde_kwin_outputdevice" summary="outputdevice the rgb range applies to"/>
+    <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice the rgb range applies to"/>
     <arg name="rgb_range" type="uint" enum="rgb_range"/>
   </request>
 
