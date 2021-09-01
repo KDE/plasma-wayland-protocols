@@ -9,6 +9,8 @@ install(FILES
     protocols/keystate.xml
     protocols/outputdevice.xml
     protocols/output-management.xml
+    protocols/kde-output-device-v2.xml
+    protocols/kde-output-management-v2.xml
     protocols/plasma-shell.xml
     protocols/plasma-virtual-desktop.xml
     protocols/plasma-window-management.xml
