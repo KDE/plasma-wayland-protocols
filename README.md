@@ -8,7 +8,7 @@ They are installed to $PREFIX/share/plasma-wayland-protocols.
 ## Usage
 You can get the directory where they're installed by using
 
-    find_package(KF5PlasmaWaylandProtocols)
+    find_package(PlasmaWaylandProtocols)
 
 Then they can be accessed using `${PLASMA_WAYLAND_PROTOCOLS_DIR}`.
 
