@@ -149,7 +149,7 @@
 	or failure.
 
 	The framerate parameter specifies the desired framerate for the
-	output in mHz.  The compositor is free to ignore this parameter.  A
+	output in MHz.  The compositor is free to ignore this parameter.  A
 	value of 0 indicates that the client has no preference.
 
 	If the value of wl_output.scale differs from wl_surface.buffer_scale,

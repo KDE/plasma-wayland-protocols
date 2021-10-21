@@ -297,7 +297,7 @@
         This event describes the mode's fixed vertical refresh rate. It is only
         sent if the mode has a fixed refresh rate.
       </description>
-      <arg name="refresh" type="int" summary="vertical refresh rate in mHz"/>
+      <arg name="refresh" type="int" summary="vertical refresh rate in MHz"/>
     </event>
 
     <event name="preferred">
