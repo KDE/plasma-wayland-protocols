@@ -3,3 +3,4 @@
 * remote-access.xml: Deprecated in favor of screencast.xml
 * surface-extension.xml: Deprecated in Qt, not used anymore
 * wayland-eglstream-controller.xml: to be removed and moved to kwin, no other component in KDE should care about this, neither others. It's not a protocol we own.
+* remove the legacy install name of zkde-screencast-unstable-v1

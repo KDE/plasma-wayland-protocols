@@ -16,7 +16,6 @@ install(FILES
     protocols/plasma-virtual-desktop.xml
     protocols/plasma-window-management.xml
     protocols/remote-access.xml
-    protocols/screencast.xml
     protocols/server-decoration-palette.xml
     protocols/server-decoration.xml
     protocols/shadow.xml
@@ -25,5 +24,10 @@ install(FILES
     protocols/text-input-unstable-v2.xml
     protocols/text-input.xml
     protocols/wayland-eglstream-controller.xml
+    protocols/zkde-screencast-unstable-v1.xml
 
     DESTINATION ${KDE_INSTALL_DATADIR}/plasma-wayland-protocols)
+
+# Backward compatibility for previously used non-standard protocol file names
+# TODO KF6 remove
+install(FILES protocols/zkde-screencast-unstable-v1.xml RENAME screencast.xml DESTINATION ${KDE_INSTALL_DATADIR}/plasma-wayland-protocols)
