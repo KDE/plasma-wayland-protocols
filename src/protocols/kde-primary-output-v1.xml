@@ -6,7 +6,7 @@
     SPDX-License-Identifier: MIT-CMU
     ]]></copyright>
 
-<interface name="kde_primary_output_v1" version="1">
+<interface name="kde_primary_output_v1" version="2">
   <description summary="expose which is the primary display">
       Protocol for telling which is the primary display among the selection of enabled outputs.
   </description>
@@ -17,6 +17,10 @@
     </description>
     <arg name="output_name" type="string" summary="the name of the output"/>
   </event>
+
+  <request name="destroy" type="destructor" since="2">
+      Destroy the primary output notifier.
+  </request>
 </interface>
 
 </protocol>
