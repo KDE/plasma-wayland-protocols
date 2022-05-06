@@ -180,6 +180,7 @@
       <entry name="notification" value="4"/>
       <entry name="tooltip" value="5"/>
       <entry name="criticalnotification" value="6" since="6"/>
+      <entry name="appletpopup" value="7" since="7"/>
 <!--
       <entry name="splash" value="1"/>
       <entry name="dashboard" value="3"/>
