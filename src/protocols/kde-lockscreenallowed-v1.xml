@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<protocol name="kde_lockscreenallowed_v1">
+  <copyright><![CDATA[
+    SPDX-FileCopyrightText: 2022 Aleix Pol Gonzalez <aleixpol@kde.org>
+
+    SPDX-License-Identifier: LGPL-2.1-or-later
+  ]]></copyright>
+
+  <interface  name="kde_lockscreenallowed_v1" version="1">
+      <description summary="Allow surfaces over the lockscreen">
+        Allows a client to request a surface to be visible when the system is locked.
+
+        This is meant to be used for specific high urgency cases like phone calls or alarms.
+      </description>
+
+      <request name="allow">
+        <arg name="surface" type="object" interface="wl_surface"/>
+    </request>
+
+    <request name="destroy" type="destructor">
+        <description summary="Destroy the kde_lockscreenallowed_v1" />
+    </request>
+  </interface>
+</protocol>
