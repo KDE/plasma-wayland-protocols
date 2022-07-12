@@ -80,6 +80,22 @@
         <arg name="button" type="uint"/>
         <arg name="state" type="uint"/>
       </request>
+
+      <request name="keyboard_keymap" since="5">
+        <description summary="keyboard mapping">
+          The keymap we need mapping from to make sure the keysym is available.
+
+          This event provides a file descriptor to the compositor which can be
+          memory-mapped in read-only mode to provide a keyboard mapping
+          description.
+
+          The fd must be mapped with MAP_PRIVATE by the recipient, as MAP_SHARED may fail.
+
+          The keymap format is xkb_v1, the same as we use in wl_keyboard.
+        </description>
+        <arg name="fd" type="fd" summary="keymap file descriptor"/>
+        <arg name="size" type="uint" summary="keymap size, in bytes"/>
+      </request>
       <request name="keyboard_keysym" since="5">
         <arg name="keysym" type="uint"/>
         <arg name="state" type="uint"/>
