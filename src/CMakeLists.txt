@@ -9,6 +9,7 @@ install(FILES
     protocols/keystate.xml
     protocols/outputdevice.xml
     protocols/output-management.xml
+    protocols/kde-lockscreen-overlay-v1.xml
     protocols/kde-primary-output-v1.xml
     protocols/kde-output-device-v2.xml
     protocols/kde-output-management-v2.xml
