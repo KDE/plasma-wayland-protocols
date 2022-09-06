@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2020 Aleix Pol Gonzalez <aleixpol@kde.org>
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 cmake_minimum_required(VERSION 3.5)
 
 project(PlasmaWaylandProtocols VERSION 1.8.0)

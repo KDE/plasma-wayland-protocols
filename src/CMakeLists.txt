@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2020 Aleix Pol Gonzalez <aleixpol@kde.org>
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 install(FILES
     protocols/appmenu.xml
     protocols/blur.xml
