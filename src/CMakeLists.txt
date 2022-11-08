@@ -30,6 +30,7 @@ install(FILES
     protocols/text-input.xml
     protocols/wayland-eglstream-controller.xml
     protocols/zkde-screencast-unstable-v1.xml
+    protocols/kde-output-order-v1.xml
 
     DESTINATION ${KDE_INSTALL_DATADIR}/plasma-wayland-protocols)
 
