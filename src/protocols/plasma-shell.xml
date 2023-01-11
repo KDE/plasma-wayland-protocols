@@ -396,5 +396,15 @@
         cursor position. Has to be called before attaching any buffer to this surface.
       </description>
     </request>
+
+    <request name="set_struts" since="8">
+      <description summary="Set panel struts">
+        WIP, how should I describe it here?
+      </description>
+      <arg name="x" type="int" summary="x position of the strut"/>
+      <arg name="y" type="int" summary="y position of the strut"/>
+      <arg name="w" type="int" summary="width of the strut"/>
+      <arg name="h" type="int" summary="height of the strut"/>
+    </request>
   </interface>
 </protocol>
