@@ -397,14 +397,29 @@
       </description>
     </request>
 
-    <request name="set_struts" since="8">
-      <description summary="Set panel struts">
-        WIP, how should I describe it here?
+    <request name="set_exclusive_zone" since="8">
+      <description summary="Configures the exclusive geometry of this surface">
+        Requests that the exclusive zone of this surface is set to have the given height/width
+        instead of the height/width of the surface.
+        This only applies if the surface touches an edge. If the value is set to 0, the
+        height/width of the surface will be used. 
       </description>
-      <arg name="x" type="int" summary="x position of the strut"/>
-      <arg name="y" type="int" summary="y position of the strut"/>
-      <arg name="w" type="int" summary="width of the strut"/>
-      <arg name="h" type="int" summary="height of the strut"/>
+      <arg name="zone" type="int" summary="height/width of the exclusive zone"/>
+    </request>
+
+    <enum name="anchor">
+      <entry name="none" value="0"/>
+      <entry name="top" value="1"/>
+      <entry name="bottom" value="2"/>
+      <entry name="left" value="4"/>
+      <entry name="right" value="8"/>
+    </enum>
+
+    <request name="set_anchor" since="8">
+      <description summary=" ">
+
+      </description>
+      <arg name="anchor" type="uint" summary=" "/>
     </request>
   </interface>
 </protocol>
