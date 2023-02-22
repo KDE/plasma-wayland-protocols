@@ -417,9 +417,10 @@
 
     <request name="set_anchor" since="8">
       <description summary=" ">
-
+        This specifies which screen side the exclusive zone of the surface should
+        be reserved in.
       </description>
-      <arg name="anchor" type="uint" summary=" "/>
+      <arg name="anchor" type="uint" summary="anchor enum value"/>
     </request>
   </interface>
 </protocol>
