@@ -1,5 +1,8 @@
 Dependencies:
-- 'on': ['@all']
+- 'on': ['Linux/Qt5', 'FreeBSD/Qt5']
+  'require':
+    'frameworks/extra-cmake-modules': '@stable'
+- 'on': ['Linux/Qt6', 'FreeBSD/Qt6']
   'require':
     'frameworks/extra-cmake-modules': '@latest-kf6'
 
