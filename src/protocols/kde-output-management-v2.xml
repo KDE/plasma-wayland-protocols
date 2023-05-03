@@ -10,7 +10,7 @@
     SPDX-License-Identifier: MIT-CMU
     ]]></copyright>
 
-<interface name="kde_output_management_v2" version="3">
+<interface name="kde_output_management_v2" version="4">
   <description summary="configuration of server outputs through clients">
     This interface enables clients to set properties of output devices for screen
     configuration purposes via the server. To this end output devices are referenced
@@ -62,7 +62,7 @@
 
 </interface>
 
-<interface name="kde_output_configuration_v2" version="3">
+<interface name="kde_output_configuration_v2" version="4">
   <description summary="configure single output devices">
     outputconfiguration is a client-specific resource that can be used to ask
     the server to apply changes to available output devices.
@@ -215,6 +215,31 @@
     </description>
     <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice the index applies to" />
     <arg name="priority" type="uint" summary="the priority of the output" />
+  </request>
+
+  <request name="set_high_dynamic_range" since="4">
+    <description summary="change if HDR should be enabled">
+      Sets whether or not the output should be set to HDR mode.
+    </description>
+    <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
+    <arg name="enable_hdr" type="uint" summary="1 to enable, 0 to disable hdr"/>
+  </request>
+
+  <request name="set_sdr_brightness" since="4">
+    <description summary="set the brightness for sdr content">
+      Sets the brightness of standard dynamic range content in nits. Only has an effect while the output is in HDR mode.
+      Note that while the value is in nits, that doesn't necessarily translate to the same brightness on the screen.
+    </description>
+    <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
+    <arg name="sdr_brightness" type="uint"/>
+  </request>
+
+  <request name="set_wide_color_gamut" since="4">
+    <description summary="change if a wide color gamut should be used">
+      Whether or not the output should use a wide color gamut
+    </description>
+    <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
+    <arg name="enable_wcg" type="uint" summary="1 to enable, 0 to disable wcg"/>
   </request>
 </interface>
 </protocol>

@@ -11,7 +11,7 @@
     ]]></copyright>
 
 
-  <interface name="kde_output_device_v2" version="2">
+  <interface name="kde_output_device_v2" version="3">
     <description summary="output configuration representation">
       An output device describes a display device available to the compositor.
       output_device is similar to wl_output, but focuses on output
@@ -209,12 +209,16 @@
       <description summary="describes capabilities of the outputdevice">
         Describes what capabilities this device has.
       </description>
-      <entry name="overscan" value="1"
+      <entry name="overscan" value="0x1"
            summary="if this output_device can use overscan"/>
-      <entry name="vrr" value="2"
+      <entry name="vrr" value="0x2"
            summary="if this outputdevice supports variable refresh rate"/>
-      <entry name="rgb_range" value="4"
+      <entry name="rgb_range" value="0x4"
              summary="if setting the rgb range is possible"/>
+      <entry name="high_dynamic_range" value="0x8" since="3"
+             summary="if this outputdevice supports high dynamic range"/>
+      <entry name="wide_color_gamut" value="0x10" since="3"
+             summary="if this outputdevice supports a wide color gamut"/>
     </enum>
   
     <event name="capabilities">
@@ -272,6 +276,29 @@
         Name of the output, it's useful to cross-reference to an zxdg_output_v1 and ultimately QScreen
       </description>
       <arg name="name" type="string"/>
+    </event>
+
+    <event name="high_dynamic_range" since="3">
+      <description summary="if HDR is enabled">
+        Whether or not high dynamic range is enabled for this output
+      </description>
+      <arg name="hdr_enabled" type="uint" summary="1 if enabled, 0 if disabled"/>
+    </event>
+
+    <event name="sdr_brightness" since="3">
+      <description summary="the brightness of sdr if hdr is enabled">
+        If high dynamic range is used, this value defines the brightness in nits for content
+        that's in standard dynamic range format. Note that while the value is in nits, that
+        doesn't necessarily translate to the same brightness on the screen.
+      </description>
+      <arg name="sdr_brightness" type="uint"/>
+    </event>
+
+    <event name="wide_color_gamut" since="3">
+      <description summary="if WCG is enabled">
+        Whether or not the use of a wide color gamut is enabled for this output
+      </description>
+      <arg name="wcg_enabled" type="uint" summary="1 if enabled, 0 if disabled"/>
     </event>
   
   </interface>
