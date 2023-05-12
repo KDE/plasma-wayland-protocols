@@ -17,6 +17,7 @@ install(FILES
     protocols/kde-primary-output-v1.xml
     protocols/kde-output-device-v2.xml
     protocols/kde-output-management-v2.xml
+    protocols/kde-screen-edge-v1.xml
     protocols/plasma-shell.xml
     protocols/plasma-virtual-desktop.xml
     protocols/plasma-window-management.xml
