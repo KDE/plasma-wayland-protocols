@@ -19,7 +19,7 @@ install(FILES
     protocols/kde-output-management-v2.xml
     protocols/kde-screen-edge-v1.xml
     protocols/plasma-shell.xml
-    protocols/plasma-virtual-desktop.xml
+    protocols/org-kde-plasma-virtual-desktop.xml
     protocols/plasma-window-management.xml
     protocols/remote-access.xml
     protocols/server-decoration-palette.xml
@@ -38,3 +38,4 @@ install(FILES
 # Backward compatibility for previously used non-standard protocol file names
 # TODO KF6 remove
 install(FILES protocols/zkde-screencast-unstable-v1.xml RENAME screencast.xml DESTINATION ${KDE_INSTALL_DATADIR}/plasma-wayland-protocols)
+install(FILES protocols/org-kde-plasma-virtual-desktop.xml RENAME plasma-virtual-desktop.xml DESTINATION ${KDE_INSTALL_DATADIR}/plasma-wayland-protocols)
