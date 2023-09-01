@@ -1,4 +1,6 @@
 # To be removed
+Only remove after Plasma 5 and KF 5 releases end.
+
 * fullscreen-shell.xml: It's upstream https://gitlab.freedesktop.org/wayland/wayland-protocols/-/tree/master/unstable
 * remote-access.xml: Deprecated in favor of screencast.xml
 * surface-extension.xml: Deprecated in Qt, not used anymore
