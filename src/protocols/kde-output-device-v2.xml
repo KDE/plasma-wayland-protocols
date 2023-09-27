@@ -11,7 +11,7 @@
     ]]></copyright>
 
 
-  <interface name="kde_output_device_v2" version="3">
+  <interface name="kde_output_device_v2" version="4">
     <description summary="output configuration representation">
       An output device describes a display device available to the compositor.
       output_device is similar to wl_output, but focuses on output
@@ -219,6 +219,8 @@
              summary="if this outputdevice supports high dynamic range"/>
       <entry name="wide_color_gamut" value="0x10" since="3"
              summary="if this outputdevice supports a wide color gamut"/>
+      <entry name="auto_rotate" value="0x20" since="4"
+             summary="if this outputdevice supports autorotation"/>
     </enum>
   
     <event name="capabilities">
@@ -299,6 +301,18 @@
         Whether or not the use of a wide color gamut is enabled for this output
       </description>
       <arg name="wcg_enabled" type="uint" summary="1 if enabled, 0 if disabled"/>
+    </event>
+
+    <enum name="auto_rotate_policy">
+      <description summary="describes when auto rotate should be used"/>
+      <entry name="never" value="0"/>
+      <entry name="in_tablet_mode" value="1"/>
+      <entry name="always" value="2"/>
+    </enum>
+
+    <event name="auto_rotate_policy" since="4">
+      <description summary="describes when auto rotate is used"/>
+      <arg name="policy" type="uint" enum="auto_rotate_policy"/>
     </event>
   
   </interface>

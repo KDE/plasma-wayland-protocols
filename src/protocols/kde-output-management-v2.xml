@@ -10,7 +10,7 @@
     SPDX-License-Identifier: MIT-CMU
     ]]></copyright>
 
-<interface name="kde_output_management_v2" version="4">
+<interface name="kde_output_management_v2" version="5">
   <description summary="configuration of server outputs through clients">
     This interface enables clients to set properties of output devices for screen
     configuration purposes via the server. To this end output devices are referenced
@@ -62,7 +62,7 @@
 
 </interface>
 
-<interface name="kde_output_configuration_v2" version="4">
+<interface name="kde_output_configuration_v2" version="5">
   <description summary="configure single output devices">
     outputconfiguration is a client-specific resource that can be used to ask
     the server to apply changes to available output devices.
@@ -240,6 +240,19 @@
     </description>
     <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
     <arg name="enable_wcg" type="uint" summary="1 to enable, 0 to disable wcg"/>
+  </request>
+
+  <enum name="auto_rotate_policy">
+    <description summary="describes when auto rotate should be used"/>
+    <entry name="never" value="0"/>
+    <entry name="in_tablet_mode" value="1"/>
+    <entry name="always" value="2"/>
+  </enum>
+
+  <request name="set_auto_rotate_policy" since="5">
+    <description summary="change when auto rotate should be used"/>
+    <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
+    <arg name="policy" type="uint" enum="auto_rotate_policy"/>
   </request>
 </interface>
 </protocol>
