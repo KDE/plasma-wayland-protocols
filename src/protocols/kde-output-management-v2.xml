@@ -10,7 +10,7 @@
     SPDX-License-Identifier: MIT-CMU
     ]]></copyright>
 
-<interface name="kde_output_management_v2" version="5">
+<interface name="kde_output_management_v2" version="6">
   <description summary="configuration of server outputs through clients">
     This interface enables clients to set properties of output devices for screen
     configuration purposes via the server. To this end output devices are referenced
@@ -62,7 +62,7 @@
 
 </interface>
 
-<interface name="kde_output_configuration_v2" version="5">
+<interface name="kde_output_configuration_v2" version="6">
   <description summary="configure single output devices">
     outputconfiguration is a client-specific resource that can be used to ask
     the server to apply changes to available output devices.
@@ -253,6 +253,12 @@
     <description summary="change when auto rotate should be used"/>
     <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
     <arg name="policy" type="uint" enum="auto_rotate_policy"/>
+  </request>
+
+  <request name="set_icc_profile_path" since="6">
+    <description summary="change the used icc profile"/>
+    <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
+    <arg name="profile_path" type="string"/>
   </request>
 </interface>
 </protocol>

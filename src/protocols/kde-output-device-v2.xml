@@ -11,7 +11,7 @@
     ]]></copyright>
 
 
-  <interface name="kde_output_device_v2" version="4">
+  <interface name="kde_output_device_v2" version="5">
     <description summary="output configuration representation">
       An output device describes a display device available to the compositor.
       output_device is similar to wl_output, but focuses on output
@@ -221,6 +221,8 @@
              summary="if this outputdevice supports a wide color gamut"/>
       <entry name="auto_rotate" value="0x20" since="4"
              summary="if this outputdevice supports autorotation"/>
+      <entry name="icc_profile" value="0x40" since="5"
+             summary="if this outputdevice supports icc profiles"/>
     </enum>
   
     <event name="capabilities">
@@ -313,6 +315,11 @@
     <event name="auto_rotate_policy" since="4">
       <description summary="describes when auto rotate is used"/>
       <arg name="policy" type="uint" enum="auto_rotate_policy"/>
+    </event>
+
+    <event name="icc_profile_path" since="5">
+      <description summary="describes when auto rotate is used"/>
+      <arg name="profile_path" type="string"/>
     </event>
   
   </interface>
