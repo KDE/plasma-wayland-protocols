@@ -4,7 +4,7 @@
 
 cmake_minimum_required(VERSION 3.5)
 
-project(PlasmaWaylandProtocols VERSION 1.10.80)
+project(PlasmaWaylandProtocols VERSION 1.11.0)
 
 include(FeatureSummary)
 include(CMakePackageConfigHelpers)
