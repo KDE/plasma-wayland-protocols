@@ -29,6 +29,7 @@ install(FILES
     protocols/surface-extension.xml
     protocols/text-input-unstable-v2.xml
     protocols/text-input.xml
+    protocols/wayland-eglstream-controller.xml
     protocols/zkde-screencast-unstable-v1.xml
     protocols/kde-output-order-v1.xml
 
