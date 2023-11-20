@@ -11,7 +11,7 @@
     ]]></copyright>
 
 
-  <interface name="kde_output_device_v2" version="5">
+  <interface name="kde_output_device_v2" version="6">
     <description summary="output configuration representation">
       An output device describes a display device available to the compositor.
       output_device is similar to wl_output, but focuses on output
@@ -321,7 +321,28 @@
       <description summary="describes when auto rotate is used"/>
       <arg name="profile_path" type="string"/>
     </event>
-  
+
+    <event name="brightness_metadata" since="6">
+      <description summary="metadata about the screen's brightness limits"/>
+      <arg name="max_peak_brightness" type="uint" summary="in nits"/>
+      <arg name="max_frame_average_brightness" type="uint" summary="in nits"/>
+      <arg name="min_brightness" type="uint" summary="in 0.0001 nits"/>
+    </event>
+
+    <event name="brightness_overrides" since="6">
+      <description summary="overrides for the screen's brightness limits"/>
+      <arg name="max_peak_brightness" type="int" summary="-1 for no override, positive values are the brightness in nits"/>
+      <arg name="max_average_brightness" type="int" summary="-1 for no override, positive values are the brightness in nits"/>
+      <arg name="min_brightness" type="int" summary="-1 for no override, positive values are the brightness in 0.0001 nits"/>
+    </event>
+
+    <event name="sdr_gamut_wideness" since="6">
+      <description summary="describes which gamut is assumed for sRGB applications">
+          This can be used to provide the colors users assume sRGB applications should have based on the
+          default experience on many modern sRGB screens.
+      </description>
+      <arg name="gamut_wideness" type="uint" summary="0 means rec.709 primaries, 10000 means rec.2020 primaries"/>
+    </event>
   </interface>
 
   <interface name="kde_output_device_mode_v2" version="1">
