@@ -223,6 +223,8 @@
         Set flags bitmask as described by the flag enum.
         Pass 0 to unset any flag, the surface will adjust its behavior to
         the default.
+
+        Deprecated in Plasma 6. Setting this flag will have no effect. Applications should use layer shell where appropriate.
       </description>
       <arg name="flag" type="uint" summary="panel_behavior enum value"/>
     </request>
