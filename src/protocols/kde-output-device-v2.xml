@@ -341,7 +341,7 @@
           This can be used to provide the colors users assume sRGB applications should have based on the
           default experience on many modern sRGB screens.
       </description>
-      <arg name="gamut_wideness" type="uint" summary="0 means rec.709 primaries, 10000 means rec.2020 primaries"/>
+      <arg name="gamut_wideness" type="uint" summary="0 means rec.709 primaries, 10000 means native primaries"/>
     </event>
   </interface>
 

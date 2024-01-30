@@ -276,7 +276,7 @@
       default experience on many modern sRGB screens.
     </description>
     <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
-    <arg name="gamut_wideness" type="uint" summary="0 means rec.709 primaries, 10000 means rec.2020 primaries"/>
+    <arg name="gamut_wideness" type="uint" summary="0 means rec.709 primaries, 10000 means native primaries"/>
   </request>
 </interface>
 </protocol>
