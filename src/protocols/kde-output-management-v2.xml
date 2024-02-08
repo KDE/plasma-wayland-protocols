@@ -11,7 +11,7 @@
     SPDX-License-Identifier: MIT-CMU
     ]]></copyright>
 
-<interface name="kde_output_management_v2" version="7">
+<interface name="kde_output_management_v2" version="8">
   <description summary="configuration of server outputs through clients">
     This interface enables clients to set properties of output devices for screen
     configuration purposes via the server. To this end output devices are referenced
@@ -63,7 +63,7 @@
 
 </interface>
 
-<interface name="kde_output_configuration_v2" version="7">
+<interface name="kde_output_configuration_v2" version="8">
   <description summary="configure single output devices">
     outputconfiguration is a client-specific resource that can be used to ask
     the server to apply changes to available output devices.
@@ -128,6 +128,7 @@
   <request name="scale">
     <description summary="set scaling factor of this output">
       Sets the scaling factor for this output device.
+      This request is deprecated from version 8.
     </description>
     <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this scale change applies to"/>
     <arg name="scale" type="fixed" summary="scaling factor"/>
@@ -277,6 +278,14 @@
     </description>
     <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
     <arg name="gamut_wideness" type="uint" summary="0 means rec.709 primaries, 10000 means native primaries"/>
+  </request>
+
+  <request name="set_scale_2" since="8">
+    <description summary="set scaling factor of this output">
+      Sets the scaling factor for this output device.
+    </description>
+    <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this scale change applies to"/>
+    <arg name="scale" type="uint" summary="scaling factor in 8.24 fixed point format"/>
   </request>
 </interface>
 </protocol>

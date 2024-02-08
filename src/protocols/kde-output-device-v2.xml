@@ -11,7 +11,7 @@
     ]]></copyright>
 
 
-  <interface name="kde_output_device_v2" version="6">
+  <interface name="kde_output_device_v2" version="7">
     <description summary="output configuration representation">
       An output device describes a display device available to the compositor.
       output_device is similar to wl_output, but focuses on output
@@ -342,6 +342,11 @@
           default experience on many modern sRGB screens.
       </description>
       <arg name="gamut_wideness" type="uint" summary="0 means rec.709 primaries, 10000 means native primaries"/>
+    </event>
+
+    <event name="scale_2" since="7">
+      <description summary="output scale in higher resolution"/>
+      <arg name="factor" type="uint" summary="scaling factor of output in 8.24 fixed point format"/>
     </event>
   </interface>
 
