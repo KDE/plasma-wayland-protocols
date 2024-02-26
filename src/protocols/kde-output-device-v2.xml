@@ -11,7 +11,7 @@
     ]]></copyright>
 
 
-  <interface name="kde_output_device_v2" version="6">
+  <interface name="kde_output_device_v2" version="7">
     <description summary="output configuration representation">
       An output device describes a display device available to the compositor.
       output_device is similar to wl_output, but focuses on output
@@ -342,6 +342,18 @@
           default experience on many modern sRGB screens.
       </description>
       <arg name="gamut_wideness" type="uint" summary="0 means rec.709 primaries, 10000 means native primaries"/>
+    </event>
+
+    <enum name="color_profile_source" since="7">
+      <description summary="which source the compositor should use for the color profile on an output"/>
+      <entry name="sRGB" value="0"/>
+      <entry name="ICC" value="1"/>
+      <entry name="EDID" value="2"/>
+    </enum>
+
+    <event name="color_profile_source" since="7">
+      <description summary="describes which source the compositor uses for the color profile on an output"/>
+      <arg name="source" type="uint" enum="color_profile_source"/>
     </event>
   </interface>
 

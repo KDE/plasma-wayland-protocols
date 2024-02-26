@@ -11,7 +11,7 @@
     SPDX-License-Identifier: MIT-CMU
     ]]></copyright>
 
-<interface name="kde_output_management_v2" version="7">
+<interface name="kde_output_management_v2" version="8">
   <description summary="configuration of server outputs through clients">
     This interface enables clients to set properties of output devices for screen
     configuration purposes via the server. To this end output devices are referenced
@@ -63,7 +63,7 @@
 
 </interface>
 
-<interface name="kde_output_configuration_v2" version="7">
+<interface name="kde_output_configuration_v2" version="8">
   <description summary="configure single output devices">
     outputconfiguration is a client-specific resource that can be used to ask
     the server to apply changes to available output devices.
@@ -277,6 +277,19 @@
     </description>
     <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
     <arg name="gamut_wideness" type="uint" summary="0 means rec.709 primaries, 10000 means native primaries"/>
+  </request>
+
+  <enum name="color_profile_source" since="7">
+    <description summary="which source the compositor should use for the color profile on an output"/>
+    <entry name="sRGB" value="0"/>
+    <entry name="ICC" value="1"/>
+    <entry name="EDID" value="2"/>
+  </enum>
+
+  <request name="set_color_profile_source" since="8">
+    <description summary="which source the compositor should use for the color profile on an output"/>
+    <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
+    <arg name="color_profile_source" type="uint" enum="color_profile_source" summary="the color profile source"/>
   </request>
 </interface>
 </protocol>
