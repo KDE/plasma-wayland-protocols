@@ -11,7 +11,7 @@
     ]]></copyright>
 
 
-  <interface name="kde_output_device_v2" version="7">
+  <interface name="kde_output_device_v2" version="8">
     <description summary="output configuration representation">
       An output device describes a display device available to the compositor.
       output_device is similar to wl_output, but focuses on output
@@ -354,6 +354,18 @@
     <event name="color_profile_source" since="7">
       <description summary="describes which source the compositor uses for the color profile on an output"/>
       <arg name="source" type="uint" enum="color_profile_source"/>
+    </event>
+
+    <event name="brightness" since="8">
+      <description summary="brightness multiplier">
+        This is the brightness modifier of the output. It doesn't specify
+        any absolute values, but is merely a multiplier on top of other
+        brightness values, like sdr_brightness and brightness_metadata.
+        0 is the minimum brightness (not completely dark) and 10000 is
+        the maximum brightness.
+        This is currently only supported / meaningful while HDR is active.
+      </description>
+      <arg name="brightness" type="uint" summary="brightness in 0-10000"/>
     </event>
   </interface>
 

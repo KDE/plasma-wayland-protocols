@@ -11,7 +11,7 @@
     SPDX-License-Identifier: MIT-CMU
     ]]></copyright>
 
-<interface name="kde_output_management_v2" version="8">
+<interface name="kde_output_management_v2" version="9">
   <description summary="configuration of server outputs through clients">
     This interface enables clients to set properties of output devices for screen
     configuration purposes via the server. To this end output devices are referenced
@@ -63,7 +63,7 @@
 
 </interface>
 
-<interface name="kde_output_configuration_v2" version="8">
+<interface name="kde_output_configuration_v2" version="9">
   <description summary="configure single output devices">
     outputconfiguration is a client-specific resource that can be used to ask
     the server to apply changes to available output devices.
@@ -290,6 +290,19 @@
     <description summary="which source the compositor should use for the color profile on an output"/>
     <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
     <arg name="color_profile_source" type="uint" enum="color_profile_source" summary="the color profile source"/>
+  </request>
+
+  <request name="set_brightness" since="9">
+    <description summary="brightness multiplier">
+      Set the brightness modifier of the output. It doesn't specify
+      any absolute values, but is merely a multiplier on top of other
+      brightness values, like sdr_brightness and brightness_metadata.
+      0 is the minimum brightness (not completely dark) and 10000 is
+      the maximum brightness.
+      This is currently only supported / meaningful while HDR is active.
+    </description>
+    <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
+    <arg name="brightness" type="uint" summary="brightness in 0-10000"/>
   </request>
 </interface>
 </protocol>
