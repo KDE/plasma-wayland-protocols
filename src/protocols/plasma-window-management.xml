@@ -6,7 +6,7 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
   ]]></copyright>
 
-  <interface name="org_kde_plasma_window_management" version="17">
+  <interface name="org_kde_plasma_window_management" version="18">
     <description summary="application windows management">
       This interface manages application windows.
       It provides requests to show and hide the desktop and emits
@@ -121,7 +121,7 @@
     </request>
   </interface>
 
-  <interface name="org_kde_plasma_window" version="17">
+  <interface name="org_kde_plasma_window" version="18">
     <description summary="interface to control application windows">
       Manages and control an application window.
 
@@ -399,6 +399,17 @@
         This is only set for XWayland windows.
       </description>
       <arg name="resource_name" type="string" summary="resource name"/>
+    </event>
+
+    <event name="client_geometry" since="18">
+      <description summary="The client geometry (i.e. without decorations etc) of this window in absolute coordinates">
+        This event will be sent whenever the window geometry of this org_kde_plasma_window changes.
+        The coordinates are in absolute coordinates of the windowing system.
+      </description>
+      <arg name="x" type="int" summary="x position of the org_kde_plasma_window"/>
+      <arg name="y" type="int" summary="y position of the org_kde_plasma_window"/>
+      <arg name="width" type="uint" summary="width of the org_kde_plasma_window"/>
+      <arg name="height" type="uint" summary="height of the org_kde_plasma_window"/>
     </event>
   </interface>
 
