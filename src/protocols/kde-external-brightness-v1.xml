@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<protocol name="kde_external_brightness_v1">
+  <copyright><![CDATA[
+    SPDX-FileCopyrightText: 2024 Xaver Hugl <xaver.hugl@gmail.com>
+
+    SPDX-License-Identifier: MIT-CMU
+    ]]></copyright>
+
+  <interface name="kde_external_brightness_v1" version="1">
+    <description summary="external brightness control">
+      Some brightness control mechanisms are somewhat unstable, or require root
+      privileges, so putting them inside of the compositor is not desired.
+      This protocol is for outsourcing the actual brightness-setting to a
+      process outside of the compositor.
+    </description>
+
+    <request name="create_brightness_control">
+      <description summary="registers a brightness device with the compositor"/>
+      <arg name="id" type="new_id" interface="kde_external_brightness_device_v1"/>
+    </request>
+  </interface>
+
+  <interface name="kde_external_brightness_device_v1" version="1">
+    <description summary="brightness control device">
+      After creating this object, the client should issue all relevant setup requests
+      (add_internal, add_edid, notify_max_brightness and notify_brightness) and finish
+      the sequence with setup_done.
+      Afterwards, it should only send max_brightness requests if needed
+    <description>
+
+    <request name="destroy" type="destructor">
+      <description summary="destroy the object and unregister the brightness control device"/>
+    </request>
+
+    <request name="add_internal">
+      <arg name="internal" type="uint" description="true if it's an internal panel, false if not"/>
+    </request>
+
+    <request name="add_edid">
+      <arg name="string" type="string" description="base-64 encoded string of the first 128 bytes of the EDID"/>
+    </request>
+
+    <request name="notify_max_brightness">
+      <description summary="notifies the comopsitor of the maximum brightness that can be set on this device"/>
+      <arg name="value" type="uint" summary="the maximum value that can be set"/>
+    </request>
+
+    <request name="setup_done">
+      <description summary="notifies the compositor that all relevant identifiers and values have been sent"/>
+    </request>
+
+    <request name="notify_brightness">
+      <description summary="notifies the compositor of the brightness value changing"/>
+      <arg name="external" type="uint"
+           summary="1 if the change is from an external source, 0 if it's caused by a change_brightness_to event"/>
+    </request>
+
+    <event name="change_brightness_to">
+      <description summary="requests the client to change the brightness to this value">
+        The client should respond with a notify_brightness request once the brightness is actually
+        set on the device.
+      <description>
+      <arg name="value" type="uint" summary="the value to set the device to"/>
+    </event>
+
+  </interface>
+</protocol>

@@ -10,16 +10,18 @@ install(FILES
     protocols/fake-input.xml
     protocols/fullscreen-shell.xml
     protocols/idle.xml
-    protocols/keystate.xml
-    protocols/outputdevice.xml
-    protocols/output-management.xml
+    protocols/kde-external-brightness-v1.xml
     protocols/kde-lockscreen-overlay-v1.xml
-    protocols/kde-primary-output-v1.xml
     protocols/kde-output-device-v2.xml
     protocols/kde-output-management-v2.xml
+    protocols/kde-output-order-v1.xml
+    protocols/kde-primary-output-v1.xml
     protocols/kde-screen-edge-v1.xml
-    protocols/plasma-shell.xml
+    protocols/keystate.xml
     protocols/org-kde-plasma-virtual-desktop.xml
+    protocols/output-management.xml
+    protocols/outputdevice.xml
+    protocols/plasma-shell.xml
     protocols/plasma-window-management.xml
     protocols/remote-access.xml
     protocols/server-decoration-palette.xml
@@ -31,7 +33,6 @@ install(FILES
     protocols/text-input.xml
     protocols/wayland-eglstream-controller.xml
     protocols/zkde-screencast-unstable-v1.xml
-    protocols/kde-output-order-v1.xml
 
     DESTINATION ${KDE_INSTALL_DATADIR}/plasma-wayland-protocols)
 
