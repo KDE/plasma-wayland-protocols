@@ -302,7 +302,9 @@
       brightness values, like sdr_brightness and brightness_metadata.
       0 is the minimum brightness (not completely dark) and 10000 is
       the maximum brightness.
-      This is currently only supported / meaningful while HDR is active.
+      This is supported while HDR is active in versions 8 and below,
+      or when the device supports the brightness_control capability in
+      versions 9 and above.
     </description>
     <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
     <arg name="brightness" type="uint" summary="brightness in 0-10000"/>
