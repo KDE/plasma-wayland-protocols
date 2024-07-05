@@ -52,6 +52,9 @@
     Through this design the interface enables atomic output configuration changes if
     internally supported by the server.
 
+    Warning! The protocol described in this file is a desktop environment implementation
+    detail. Regular clients must not use this protocol. Backward incompatible
+    changes may be added without bumping the major version of the extension.
   </description>
   <request name="create_configuration">
     <description summary="provide outputconfiguration object for configuring outputs">
@@ -167,7 +170,7 @@
     <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice overscan applies to"/>
     <arg name="overscan" type="uint" summary="overscan value"/>
   </request>
-  
+
   <enum name="vrr_policy">
     <description summary="describes vrr policy">
       Describes when the compositor may employ variable refresh rate

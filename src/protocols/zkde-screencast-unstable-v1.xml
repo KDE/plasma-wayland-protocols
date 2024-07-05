@@ -6,7 +6,12 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
   ]]></copyright>
     <interface name="zkde_screencast_unstable_v1" version="3">
-        <description summary="Protocol for managing PipeWire feeds of the different displays and windows."/>
+        <description summary="Protocol for managing PipeWire feeds of the different displays and windows">
+            Warning! The protocol described in this file is a desktop environment
+            implementation detail. Regular clients must not use this protocol.
+            Backward incompatible changes may be added without bumping the major
+            version of the extension.
+        </description>
 
         <enum name="pointer">
             <description summary="Stream consumer attachment attributes" />
