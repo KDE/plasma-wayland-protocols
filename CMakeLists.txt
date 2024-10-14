@@ -15,9 +15,16 @@ set_package_properties(ECM PROPERTIES TYPE REQUIRED DESCRIPTION "Extra CMake Mod
 feature_summary(WHAT REQUIRED_PACKAGES_NOT_FOUND FATAL_ON_MISSING_REQUIRED_PACKAGES)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake/Modules)
 include(KDEInstallDirs)
+include(KDECMakeSettings)
 include(ECMSetupVersion)
 
 add_subdirectory(src)
+
+if (BUILD_TESTING)
+    find_package(WaylandScanner REQUIRED)
+    find_package(Wayland COMPONENTS Client REQUIRED)
+    add_subdirectory(autotests)
+endif()
 
 # create a Config.cmake and a ConfigVersion.cmake file and install them
 set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/PlasmaWaylandProtocols")
