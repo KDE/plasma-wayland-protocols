@@ -1,4 +1,5 @@
 # Ignore the following files
+.vscode
 *~
 *.[oa]
 *.diff
@@ -19,4 +20,9 @@ random_seed
 /build*/
 CMakeLists.txt.user*
 *.unc-backup*
-.cmake/
+/compile_commands.json
+.clangd
+.idea
+/cmake-build*
+.cache
+.directory
