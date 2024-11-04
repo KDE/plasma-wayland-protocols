@@ -11,7 +11,7 @@
     ]]></copyright>
 
 
-  <interface name="kde_output_device_v2" version="9">
+  <interface name="kde_output_device_v2" version="10">
     <description summary="output configuration representation">
       An output device describes a display device available to the compositor.
       output_device is similar to wl_output, but focuses on output
@@ -373,6 +373,22 @@
         This is currently only supported / meaningful while HDR is active.
       </description>
       <arg name="brightness" type="uint" summary="brightness in 0-10000"/>
+    </event>
+
+    <enum name="color_power_tradeoff">
+      <description summary="tradeoff between power and accuracy">
+        The compositor can do a lot of things that trade between
+        performance, power and color accuracy. This setting describes
+        a high level preference from the user about in which direction
+        that tradeoff should be made.
+      </description>
+      <entry name="efficiency" value="0" summary="prefer efficiency and performance"/>
+      <entry name="accuracy" value="1" summary="prefer accuracy"/>
+    </enum>
+
+    <event name="color_power_tradeoff" since="10">
+      <description summary="the preferred color/power tradeoff"/>
+      <arg name="preference" type="uint" enum="color_power_tradeoff"/>
     </event>
   </interface>
 
