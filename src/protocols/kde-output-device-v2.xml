@@ -11,7 +11,7 @@
     ]]></copyright>
 
 
-  <interface name="kde_output_device_v2" version="10">
+  <interface name="kde_output_device_v2" version="11">
     <description summary="output configuration representation">
       An output device describes a display device available to the compositor.
       output_device is similar to wl_output, but focuses on output
@@ -389,6 +389,18 @@
     <event name="color_power_tradeoff" since="10">
       <description summary="the preferred color/power tradeoff"/>
       <arg name="preference" type="uint" enum="color_power_tradeoff"/>
+    </event>
+
+    <event name="dimming" since="11">
+      <description summary="dimming multiplier">
+        This is the dimming multiplier of the output. This is similar to
+        the brightness setting, except it's meant to be a temporary setting
+        only, not persistent and may be implemented differently depending
+        on the display.
+        0 is the minimum dimming factor (not completely dark) and 10000
+        means the output is not dimmed.
+      </description>
+      <arg name="multiplier" type="uint" summary="multiplier in 0-10000"/>
     </event>
   </interface>
 
