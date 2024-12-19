@@ -11,7 +11,7 @@
     ]]></copyright>
 
 
-  <interface name="kde_output_device_v2" version="12">
+  <interface name="kde_output_device_v2" version="13">
     <description summary="output configuration representation">
       An output device describes a display device available to the compositor.
       output_device is similar to wl_output, but focuses on output
@@ -403,6 +403,11 @@
         means the output is not dimmed.
       </description>
       <arg name="multiplier" type="uint" summary="multiplier in 0-10000"/>
+    </event>
+
+    <event name="replication_source" since="13">
+      <description summary="source output for mirroring"/>
+      <arg name="source" type="string" summary="uuid of the source output"/>
     </event>
   </interface>
 

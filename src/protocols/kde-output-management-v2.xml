@@ -11,7 +11,7 @@
     SPDX-License-Identifier: MIT-CMU
     ]]></copyright>
 
-<interface name="kde_output_management_v2" version="12">
+<interface name="kde_output_management_v2" version="13">
   <description summary="configuration of server outputs through clients">
     This interface enables clients to set properties of output devices for screen
     configuration purposes via the server. To this end output devices are referenced
@@ -66,7 +66,7 @@
 
 </interface>
 
-<interface name="kde_output_configuration_v2" version="12">
+<interface name="kde_output_configuration_v2" version="13">
   <description summary="configure single output devices">
     outputconfiguration is a client-specific resource that can be used to ask
     the server to apply changes to available output devices.
@@ -350,6 +350,15 @@
     </description>
     <arg name="reason" type="string" summary="reason for failure"/>
   </event>
+
+  <request name="set_replication_source" since="13">
+    <description summary="source output for mirroring">
+      Set the source output that the outputdevice should mirror its
+      viewport from.
+    </description>
+    <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
+    <arg name="source" type="string" summary="uuid of the source output"/>
+  </request>
 
 </interface>
 </protocol>
