@@ -11,7 +11,7 @@
     ]]></copyright>
 
 
-  <interface name="kde_output_device_v2" version="12">
+  <interface name="kde_output_device_v2" version="13">
     <description summary="output configuration representation">
       An output device describes a display device available to the compositor.
       output_device is similar to wl_output, but focuses on output
@@ -232,6 +232,8 @@
              summary="if this outputdevice supports the brightness setting"/>
       <entry name="built_in_color" value="0x100" since="12"
              summary="if this outputdevice supports the built-in color profile"/>
+      <entry name="custom_color_profile" value="0x200" since="13"
+             summary="if this outputdevice supports custom non-ICC color profiles"/>
     </enum>
 
     <event name="capabilities">
@@ -358,6 +360,7 @@
       <entry name="sRGB" value="0"/>
       <entry name="ICC" value="1"/>
       <entry name="EDID" value="2"/>
+      <entry name="Custom" value="3"/>
     </enum>
 
     <event name="color_profile_source" since="7">
@@ -403,6 +406,34 @@
         means the output is not dimmed.
       </description>
       <arg name="multiplier" type="uint" summary="multiplier in 0-10000"/>
+    </event>
+
+    <enum name="custom_color_profile_primaries" since="13">
+      <description summary="named primaries for the custom color profile"/>
+      <entry name="EDID" value="0"/>
+      <entry name="sRGB" value="1"/>
+      <entry name="AdobeRGB" value="2"/>
+      <entry name="DisplayP3" value="3"/>
+      <entry name="DCIP3" value="4"/>
+      <entry name="BT2020" value="5"/>
+    </enum>
+
+    <enum name="custom_color_profile_tf" since="13">
+      <description summary="named transfer functions for the custom color profile"/>
+      <entry name="sRGB" value="0"/>
+      <entry name="piece_wise_sRGB" value="1"/>
+      <entry name="BT1886" value="2"/>
+      <entry name="custom_gamma" value="3"/>
+    </enum>
+
+    <event name="custom_color_profile" since="13">
+      <description summary="named primaries for the custom color profile"/>
+      <arg name="primaries" type="uint" enum="custom_color_profile_primaries"/>
+      <arg name="transfer_function" type="uint" enum="custom_color_profile_tf"/>
+      <arg name="red_multiplier" type="uint" summary="multiplier in 1/10000"/>
+      <arg name="green_multiplier" type="uint" summary="multiplier in 1/10000"/>
+      <arg name="blue_multiplier" type="uint" summary="multiplier in 1/10000"/>
+      <arg name="custom_gamma" type="uint" summary="gamma in 1/10000"/>
     </event>
   </interface>
 

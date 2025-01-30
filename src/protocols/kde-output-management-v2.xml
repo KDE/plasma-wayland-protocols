@@ -11,7 +11,7 @@
     SPDX-License-Identifier: MIT-CMU
     ]]></copyright>
 
-<interface name="kde_output_management_v2" version="12">
+<interface name="kde_output_management_v2" version="13">
   <description summary="configuration of server outputs through clients">
     This interface enables clients to set properties of output devices for screen
     configuration purposes via the server. To this end output devices are referenced
@@ -66,7 +66,7 @@
 
 </interface>
 
-<interface name="kde_output_configuration_v2" version="12">
+<interface name="kde_output_configuration_v2" version="13">
   <description summary="configure single output devices">
     outputconfiguration is a client-specific resource that can be used to ask
     the server to apply changes to available output devices.
@@ -350,6 +350,35 @@
     </description>
     <arg name="reason" type="string" summary="reason for failure"/>
   </event>
+
+  <enum name="custom_color_profile_primaries" since="13">
+    <description summary="named primaries for the custom color profile"/>
+    <entry name="EDID" value="0"/>
+    <entry name="sRGB" value="1"/>
+    <entry name="AdobeRGB" value="2"/>
+    <entry name="DisplayP3" value="3"/>
+    <entry name="DCIP3" value="4"/>
+    <entry name="BT2020" value="5"/>
+  </enum>
+
+  <enum name="custom_color_profile_tf" since="13">
+    <description summary="named transfer functions for the custom color profile"/>
+    <entry name="sRGB" value="0"/>
+    <entry name="piece_wise_sRGB" value="1"/>
+    <entry name="BT1886" value="2"/>
+    <entry name="custom_gamma" value="3"/>
+  </enum>
+
+  <request name="set_custom_color_profile" since="13">
+    <description summary="named primaries for the custom color profile"/>
+    <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
+    <arg name="primaries" type="uint" enum="custom_color_profile_primaries"/>
+    <arg name="transfer_function" type="uint" enum="custom_color_profile_tf"/>
+    <arg name="red_multiplier" type="uint" summary="multiplier in 1/10000"/>
+    <arg name="green_multiplier" type="uint" summary="multiplier in 1/10000"/>
+    <arg name="blue_multiplier" type="uint" summary="multiplier in 1/10000"/>
+    <arg name="custom_gamma" type="uint" summary="gamma in 1/10000"/>
+  </request>
 
 </interface>
 </protocol>
