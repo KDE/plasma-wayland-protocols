@@ -11,7 +11,7 @@
     ]]></copyright>
 
 
-  <interface name="kde_output_device_v2" version="14">
+  <interface name="kde_output_device_v2" version="15">
     <description summary="output configuration representation">
       An output device describes a display device available to the compositor.
       output_device is similar to wl_output, but focuses on output
@@ -234,6 +234,8 @@
              summary="if this outputdevice supports the built-in color profile"/>
       <entry name="ddc_ci" value="0x200" since="14"
              summary="if this outputdevice supports DDC/CI"/>
+      <entry name="max_bits_per_color" value="0x200" since="15"
+             summary="if this outputdevice supports setting max bpc"/>
     </enum>
 
     <event name="capabilities">
@@ -418,6 +420,25 @@
         such as brightness, contrast or others should be set using DDC/CI.
       </description>
       <arg name="allowed" type="uint" summary="1 if allowed, 0 if disabled"/>
+    </event>
+
+    <event name="max_bits_per_color" since="15">
+      <description summary="override max bpc">
+        This limits the amount of bits per color that are sent to the display.
+      </description>
+      <arg name="max_bpc" type="uint" summary="0 for the default / automatic"/>
+    </event>
+
+    <event name="max_bits_per_color_range" since="15">
+      <description summary="range of max bits per color value"/>
+      <arg name="min_value" type="uint" summary="the minimum supported by the driver"/>
+      <arg name="max_value" type="uint" summary="the maximum supported by the driver"/>
+    </event>
+
+    <event name="automatic_max_bits_per_color_limit" since="15">
+      <description summary="if and to what value automatic max bpc is limited"/>
+      <arg name="max_bpc_limit" type="uint"
+           summary="which value automatic bpc gets limited to. 0 if not limited"/>
     </event>
   </interface>
 
