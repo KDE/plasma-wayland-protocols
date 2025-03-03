@@ -11,7 +11,7 @@
     ]]></copyright>
 
 
-  <interface name="kde_output_device_v2" version="13">
+  <interface name="kde_output_device_v2" version="14">
     <description summary="output configuration representation">
       An output device describes a display device available to the compositor.
       output_device is similar to wl_output, but focuses on output
@@ -232,6 +232,8 @@
              summary="if this outputdevice supports the brightness setting"/>
       <entry name="built_in_color" value="0x100" since="12"
              summary="if this outputdevice supports the built-in color profile"/>
+      <entry name="ddc_ci" value="0x200" since="14"
+             summary="if this outputdevice supports DDC/CI"/>
     </enum>
 
     <event name="capabilities">
@@ -408,6 +410,14 @@
     <event name="replication_source" since="13">
       <description summary="source output for mirroring"/>
       <arg name="source" type="string" summary="uuid of the source output"/>
+    </event>
+
+    <event name="ddc_ci_allowed" since="14">
+      <description summary="if DDC/CI should be used to control brightness etc.">
+        If the ddc_ci capability is present, this determines if settings
+        such as brightness, contrast or others should be set using DDC/CI.
+      </description>
+      <arg name="allowed" type="uint" summary="1 if allowed, 0 if disabled"/>
     </event>
   </interface>
 
