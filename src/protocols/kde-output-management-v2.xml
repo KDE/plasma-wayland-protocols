@@ -303,7 +303,7 @@
       0 is the minimum brightness (not completely dark) and 10000 is
       the maximum brightness.
       This is supported while HDR is active in versions 8 and below,
-      or when the device supports the brightness_control capability in
+      or when the device supports the "brightness" capability in
       versions 9 and above.
     </description>
     <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
@@ -336,7 +336,7 @@
       0 is the minimum dimming factor (not completely dark) and 10000
       means the output is not dimmed.
 
-      This is supported only when the brightness_control capability is
+      This is supported only when the "brightness" capability is
       also supported.
     </description>
     <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
