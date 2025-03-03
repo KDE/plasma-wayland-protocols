@@ -11,7 +11,7 @@
     ]]></copyright>
 
 
-  <interface name="kde_output_device_v2" version="12">
+  <interface name="kde_output_device_v2" version="13">
     <description summary="output configuration representation">
       An output device describes a display device available to the compositor.
       output_device is similar to wl_output, but focuses on output
@@ -232,6 +232,14 @@
              summary="if this outputdevice supports the brightness setting"/>
       <entry name="built_in_color" value="0x100" since="12"
              summary="if this outputdevice supports the built-in color profile"/>
+      <entry name="disabled_brightness_control_mode" value="0x200" since="13"
+             summary="if this outputdevice supports disabling brightness controls"/>
+      <entry name="software_brightness_control_mode" value="0x400" since="13"
+             summary="if this outputdevice supports software brightness controls (i.e. pixel dimming)"/>
+      <entry name="hardware_brightness_control_mode" value="0x800" since="13"
+             summary="if this outputdevice supports hardware brightness controls (e.g. display backlight)"/>
+      <entry name="hybrid_brightness_control_mode" value="0x1000" since="13"
+             summary="if this outputdevice supports hybrid software brightness controls (both hardware and software for extended range)"/>
     </enum>
 
     <event name="capabilities">
@@ -403,6 +411,19 @@
         means the output is not dimmed.
       </description>
       <arg name="multiplier" type="uint" summary="multiplier in 0-10000"/>
+    </event>
+
+    <enum name="brightness_control_mode" since="13">
+      <description summary="how the output's brightness should be controlled"/>
+      <entry name="disabled" value="0"/>
+      <entry name="software" value="1"/>
+      <entry name="hardware" value="2"/>
+      <entry name="hybrid" value="3"/>
+    </enum>
+
+    <event name="brightness_control_mode" since="13">
+      <description summary="the brightness control that's used if available"/>
+      <arg name="mode" type="uint" enum="brightness_control_mode"/>
     </event>
   </interface>
 

@@ -11,7 +11,7 @@
     SPDX-License-Identifier: MIT-CMU
     ]]></copyright>
 
-<interface name="kde_output_management_v2" version="12">
+<interface name="kde_output_management_v2" version="13">
   <description summary="configuration of server outputs through clients">
     This interface enables clients to set properties of output devices for screen
     configuration purposes via the server. To this end output devices are referenced
@@ -66,7 +66,7 @@
 
 </interface>
 
-<interface name="kde_output_configuration_v2" version="12">
+<interface name="kde_output_configuration_v2" version="13">
   <description summary="configure single output devices">
     outputconfiguration is a client-specific resource that can be used to ask
     the server to apply changes to available output devices.
@@ -350,6 +350,20 @@
     </description>
     <arg name="reason" type="string" summary="reason for failure"/>
   </event>
+
+  <enum name="brightness_control_mode" since="13">
+    <description summary="how the output's brightness should be controlled"/>
+    <entry name="disabled" value="0"/>
+    <entry name="software" value="1"/>
+    <entry name="hardware" value="2"/>
+    <entry name="hybrid" value="3"/>
+  </enum>
+
+  <request name="set_brightness_control_mode" since="13">
+    <description summary="how the output's brightness should be controlled"/>
+    <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
+    <arg name="brightness_control_mode" type="uint" enum="brightness_control_mode" summary="the brightness control that's used if available"/>
+  </request>
 
 </interface>
 </protocol>
