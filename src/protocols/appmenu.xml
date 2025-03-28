@@ -2,11 +2,12 @@
 <protocol name="appmenu">
   <copyright><![CDATA[
     SPDX-FileCopyrightText: 2017 David Edmundson
+    SPDX-FileCopyrightText: 2025 Vlad Zahorodnii
 
     SPDX-License-Identifier: LGPL-2.1-or-later
   ]]></copyright>
 
-  <interface name="org_kde_kwin_appmenu_manager" version="2">
+  <interface name="org_kde_kwin_appmenu_manager" version="3">
       <description summary="appmenu dbus address interface">
           This interface allows a client to link a window (or wl_surface) to an com.canonical.dbusmenu
           interface registered on DBus.
@@ -22,9 +23,22 @@
       <request name="release" type="destructor" since="2">
           <description summary="destroy the org_kde_kwin_appmenu_manager object" />
       </request>
+
+      <!-- version 3 additions -->
+
+      <event name="available" since="3">
+          <description summary="global application menu is available">
+            Indicates whether there is a global application menu. An application
+            could use this information to hide its menubar.
+
+            This event will be sent after binding the global or when the
+            availability of the global menu changes later on.
+          </description>
+          <arg name="available" type="uint" summary="1 if available, 0 if unavailable"/>
+      </event>
   </interface>
 
-  <interface name="org_kde_kwin_appmenu" version="2">
+  <interface name="org_kde_kwin_appmenu" version="3">
       <description summary="appmenu dbus address interface">
           The DBus service name and object path where the appmenu interface is present
           The object should be registered on the session bus before sending this request.
