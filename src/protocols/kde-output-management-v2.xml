@@ -11,7 +11,7 @@
     SPDX-License-Identifier: MIT-CMU
     ]]></copyright>
 
-<interface name="kde_output_management_v2" version="14">
+<interface name="kde_output_management_v2" version="15">
   <description summary="configuration of server outputs through clients">
     This interface enables clients to set properties of output devices for screen
     configuration purposes via the server. To this end output devices are referenced
@@ -66,7 +66,7 @@
 
 </interface>
 
-<interface name="kde_output_configuration_v2" version="14">
+<interface name="kde_output_configuration_v2" version="15">
   <description summary="configure single output devices">
     outputconfiguration is a client-specific resource that can be used to ask
     the server to apply changes to available output devices.
@@ -364,6 +364,12 @@
     <description summary="if DDC/CI should be used to control brightness etc."/>
     <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
     <arg name="allowed" type="uint" summary="1 if allowed, 0 if disabled"/>
+  </request>
+
+  <request name="set_extended_range_requested" since="15">
+    <description summary="if hardware brightness should be extended with software dimming"/>
+    <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
+    <arg name="requested" type="uint" summary="1 if requested, 0 if disabled"/>
   </request>
 
 </interface>

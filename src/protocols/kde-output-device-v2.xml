@@ -11,7 +11,7 @@
     ]]></copyright>
 
 
-  <interface name="kde_output_device_v2" version="14">
+  <interface name="kde_output_device_v2" version="15">
     <description summary="output configuration representation">
       An output device describes a display device available to the compositor.
       output_device is similar to wl_output, but focuses on output
@@ -234,6 +234,8 @@
              summary="if this outputdevice supports the built-in color profile"/>
       <entry name="ddc_ci" value="0x200" since="14"
              summary="if this outputdevice supports DDC/CI"/>
+      <entry name="extended_brightness_range" value="0x400" since="14"
+             summary="if this outputdevice supports extending hardware brightness controls with software dimming"/>
     </enum>
 
     <event name="capabilities">
@@ -418,6 +420,15 @@
         such as brightness, contrast or others should be set using DDC/CI.
       </description>
       <arg name="allowed" type="uint" summary="1 if allowed, 0 if disabled"/>
+    </event>
+
+    <event name="brightness_method" since="15">
+      <description summary="if this output applies brightness values through hardware controls and/or software dimming"/>
+      <arg name="software_brightness_upper_bound" type="uint" summary="0 if all hardware, 10000 if all software, in between for extended range">
+        The lowest brightness value which leaves pixel values unchanged,
+        unaffected by software dimming.
+      </arg>
+      <arg name="extended_range_requested" type="uint" summary="hardware brightness extended with software dimming: 1 if requested, 0 if disabled"/>
     </event>
   </interface>
 
