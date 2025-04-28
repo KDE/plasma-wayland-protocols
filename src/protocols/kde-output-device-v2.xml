@@ -11,7 +11,7 @@
     ]]></copyright>
 
 
-  <interface name="kde_output_device_v2" version="15">
+  <interface name="kde_output_device_v2" version="16">
     <description summary="output configuration representation">
       An output device describes a display device available to the compositor.
       output_device is similar to wl_output, but focuses on output
@@ -236,6 +236,8 @@
              summary="if this outputdevice supports DDC/CI"/>
       <entry name="max_bits_per_color" value="0x400" since="15"
              summary="if this outputdevice supports setting max bpc"/>
+      <entry name="edr" value="0x800" since="16"
+             summary="if this outputdevice supports EDR"/>
     </enum>
 
     <event name="capabilities">
@@ -439,6 +441,23 @@
       <description summary="if and to what value automatic max bpc is limited"/>
       <arg name="max_bpc_limit" type="uint"
            summary="which value automatic bpc gets limited to. 0 if not limited"/>
+    </event>
+
+    <enum name="edr_policy" since="16">
+      <description summary="when the compositor may make use of EDR"/>
+      <entry name="never" value="0"/>
+      <entry name="always" value="1"/>
+    </enum>
+
+    <event name="edr_policy" since="16">
+      <description summary="when the compositor may apply EDR">
+        When EDR is enabled, the compositor may increase the backlight beyond
+        the user-specified setting, in order to present HDR content on displays
+        without native HDR support.
+        This will usually result in better visuals, but also increases battery
+        usage.
+      </description>
+      <arg name="policy" type="uint" enum="edr_policy"/>
     </event>
   </interface>
 

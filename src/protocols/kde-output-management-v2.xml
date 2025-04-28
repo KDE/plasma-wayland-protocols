@@ -11,7 +11,7 @@
     SPDX-License-Identifier: MIT-CMU
     ]]></copyright>
 
-<interface name="kde_output_management_v2" version="15">
+<interface name="kde_output_management_v2" version="16">
   <description summary="configuration of server outputs through clients">
     This interface enables clients to set properties of output devices for screen
     configuration purposes via the server. To this end output devices are referenced
@@ -66,7 +66,7 @@
 
 </interface>
 
-<interface name="kde_output_configuration_v2" version="15">
+<interface name="kde_output_configuration_v2" version="16">
   <description summary="configure single output devices">
     outputconfiguration is a client-specific resource that can be used to ask
     the server to apply changes to available output devices.
@@ -372,6 +372,24 @@
     </description>
     <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
     <arg name="max_bpc" type="uint" summary="0 for the default / automatic"/>
+  </request>
+
+  <enum name="edr_policy" since="16">
+    <description summary="when the compositor may make use of EDR"/>
+    <entry name="never" value="0"/>
+    <entry name="always" value="1"/>
+  </enum>
+
+  <request name="set_edr_policy" since="16">
+    <description summary="set when the compositor may apply EDR">
+      When EDR is enabled, the compositor may increase the backlight beyond
+      the user-specified setting, in order to present HDR content on displays
+      without native HDR support.
+      This will usually result in better visuals, but also increases battery
+      usage.
+    </description>
+    <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
+    <arg name="policy" type="uint" enum="edr_policy"/>
   </request>
 </interface>
 </protocol>
