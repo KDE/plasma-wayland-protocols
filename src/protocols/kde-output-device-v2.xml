@@ -234,7 +234,7 @@
              summary="if this outputdevice supports the built-in color profile"/>
       <entry name="ddc_ci" value="0x200" since="14"
              summary="if this outputdevice supports DDC/CI"/>
-      <entry name="max_bits_per_color" value="0x200" since="15"
+      <entry name="max_bits_per_color" value="0x400" since="15"
              summary="if this outputdevice supports setting max bpc"/>
     </enum>
 
