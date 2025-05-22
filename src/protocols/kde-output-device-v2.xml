@@ -11,7 +11,7 @@
     ]]></copyright>
 
 
-  <interface name="kde_output_device_v2" version="16">
+  <interface name="kde_output_device_v2" version="17">
     <description summary="output configuration representation">
       An output device describes a display device available to the compositor.
       output_device is similar to wl_output, but focuses on output
@@ -458,6 +458,24 @@
         usage.
       </description>
       <arg name="policy" type="uint" enum="edr_policy"/>
+    </event>
+
+    <enum name="pixel_encoding" since="17">
+      <description summary="Which encoding is used for the display"/>
+      <entry name="auto" value="0"/>
+      <entry name="rgb" value="1"/>
+      <entry name="ycbcr444" value="2"/>
+      <entry name="ycbcr420" value="3"/>
+    </enum>
+
+    <event name="supported_pixel_encodings" since="17">
+      <description summary="which pixel encodings the compositor supports"/>
+      <arg name="encodings" type="array" summary="pixel_encoding values"/>
+    </event>
+
+    <event name="pixel_encoding" since="17">
+      <description summary="the selected pixel encoding"/>
+      <arg name="encoding" type="uint" enum="pixel_encoding"/>
     </event>
   </interface>
 

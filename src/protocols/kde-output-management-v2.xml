@@ -11,7 +11,7 @@
     SPDX-License-Identifier: MIT-CMU
     ]]></copyright>
 
-<interface name="kde_output_management_v2" version="16">
+<interface name="kde_output_management_v2" version="17">
   <description summary="configuration of server outputs through clients">
     This interface enables clients to set properties of output devices for screen
     configuration purposes via the server. To this end output devices are referenced
@@ -66,7 +66,7 @@
 
 </interface>
 
-<interface name="kde_output_configuration_v2" version="16">
+<interface name="kde_output_configuration_v2" version="17">
   <description summary="configure single output devices">
     outputconfiguration is a client-specific resource that can be used to ask
     the server to apply changes to available output devices.
@@ -391,5 +391,20 @@
     <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
     <arg name="policy" type="uint" enum="edr_policy"/>
   </request>
+
+  <enum name="pixel_encoding" since="17">
+    <description summary="Which encoding is used for the display"/>
+    <entry name="auto" value="0"/>
+    <entry name="rgb" value="1"/>
+    <entry name="ycbcr444" value="2"/>
+    <entry name="ycbcr420" value="3"/>
+  </enum>
+
+  <request name="set_pixel_encoding" since="17">
+    <description summary="set which pixel encoding should be used"/>
+    <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
+    <arg name="encoding" type="uint" enum="pixel_encoding"/>
+  </request>
+
 </interface>
 </protocol>
