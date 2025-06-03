@@ -49,11 +49,14 @@
 
     <event name="done">
         <description summary="sent all information about desktops">
-            This event is sent after all other properties has been
-            sent after binding to the desktop manager object and after any
-            other property changes done after that. This allows
-            changes to the org_kde_plasma_virtual_desktop_management properties to be seen as
-            atomic, even if they happen via multiple events.
+            This event is sent after all other properties have been sent after
+            binding to the desktop manager global and after all changes to
+            org_kde_plasma_virtual_desktop_management and org_kde_plasma_virtual_desktop
+            properties have been sent.
+
+            This allows changes to org_kde_plasma_virtual_desktop_management and
+            org_kde_plasma_virtual_desktop properties to be seen as atomic, even
+            if they happen via multiple events.
         </description>
     </event>
 
