@@ -17,6 +17,7 @@ install(FILES
     protocols/kde-output-order-v1.xml
     protocols/kde-primary-output-v1.xml
     protocols/kde-screen-edge-v1.xml
+    protocols/kde-virtual-desktop-v2.xml
     protocols/keystate.xml
     protocols/org-kde-plasma-virtual-desktop.xml
     protocols/output-management.xml

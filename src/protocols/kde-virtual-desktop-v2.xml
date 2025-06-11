@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<protocol name="kde_virtual_desktop_v2">
+  <copyright><![CDATA[
+    SPDX-FileCopyrightText: 2018 Marco Martin
+    SPDX-FileCopyrightText: 2025 Vlad Zahorodnii
+
+    SPDX-License-Identifier: LGPL-2.1-or-later
+  ]]></copyright>
+
+  <interface name="kde_virtual_desktop_manager_v2" version="1">
+    <description summary="virtual desktop manager">
+      This interface provides information about virtual desktops. It also allows
+      clients to manage virtual desktops, for example create new desktops or
+      remove the existing ones.
+
+      Warning! The protocol described in this file is a desktop environment
+      implementation detail. Regular clients must not use this protocol.
+      Backward incompatible changes may be added without bumping the major
+      version of the extension.
+    </description>
+
+    <request name="create">
+      <description summary="ask for the creation of a new desktop at a specified position">
+        Ask the compositor to create a new virtual desktop, and position it at
+        a specified position. If the position is zero or less, it will be
+        positioned at the beginning, if the position is the count or more, it will
+        be positioned at the end.
+
+        The compositor may or may not honor the request. If a new virtual desktop
+        is created, the desktop event will be sent with the new desktop.
+      </description>
+      <arg name="name" type="string" summary="the user readable name we want for the desktop"/>
+      <arg name="position" type="uint" summary="the position we want for the desktop"/>
+    </request>
+
+    <request name="stop">
+      <description summary="stop receiving virtual desktop updates">
+        Tell the compositor that the client no longer wishes to receive virtual
+        desktop updates. The compositor may still send further desktop events
+        until the finished event is sent.
+      </description>
+    </request>
+
+    <event name="finished" type="destructor">
+      <description summary="the compositor has finished sending virtual desktop updates">
+        This event indicates that the compositor will no longer send further
+        virtual desktop updates. The compositor will destroy the object immediately
+        after sending this event.
+      </description>
+    </event>
+
+    <event name="desktop">
+      <description summary="a new virtual desktop is available">
+        Introduces a new virtual desktop.
+
+        All initial properties (name, identifier, active, position) will be sent
+        immediately after this event.
+      </description>
+      <arg name="desktop" type="new_id" interface="kde_virtual_desktop_v2"/>
+    </event>
+
+    <event name="rows">
+      <arg name="rows" type="uint" summary="number of rows the virtual desktops are laid out into"/>
+    </event>
+
+    <event name="done">
+      <description summary="sent all information about desktops">
+        This event is sent after all changes to kde_virtual_desktop_manager_v2
+        and kde_virtual_desktop_v2 properties have been sent.
+
+        This allows changes to kde_virtual_desktop_manager_v2 and kde_virtual_desktop_v2
+        properties to be seen as atomic, even if they happen via multiple events.
+      </description>
+    </event>
+  </interface>
+
+  <interface name="kde_virtual_desktop_v2" version="1">
+    <description summary="virtual desktop">
+      The kde_virtual_desktop_v2 object represents a virtual desktop. Every
+      virtual desktop has: a human readable name, a unique identifier, an active
+      state, and a position in the list of virtual desktops.
+    </description>
+
+    <request name="destroy" type="destructor">
+      <description summary="destroy the virtual desktop">
+        Destroys the virtual desktop object. The compositor will not remove the
+        corresponding virtual desktop.
+      </description>
+    </request>
+
+    <request name="activate">
+      <description summary="requests this desktop to be activated">
+        Request the compositor to set the status of this desktop to active: the
+        compositor is free to consent or deny the request. This will be the new
+        "current" virtual desktop of the system.
+      </description>
+    </request>
+
+    <request name="remove">
+      <description summary="ask for a desktop removal">
+        Asks the compositor to remove the virtual desktop. The compositor may or
+        may not honor the request. If the virtual desktop is removed, the removed
+        event will be sent.
+      </description>
+    </request>
+
+    <event name="removed">
+      <description summary="this desktop has been removed">
+        This virtual desktop has just been removed by the compositor: all windows
+        will lose the association to this desktop. After sending this event, the
+        object will be considered inert and only the destroy request will be honored.
+      </description>
+    </event>
+
+    <event name="id">
+      <description summary="unique id of the desktop">
+        A desktop id univocally identifies a virtual desktop and must be
+        guaranteed to never exist two desktops with the same id. The format of
+        the string id is up to the compositor implementation.
+
+        The format of the id is decided by the compositor implementation.
+
+        The virtual desktop identifier is static and will not change during the
+        lifetime of the virtual desktop.
+      </description>
+      <arg name="id" type="string" summary="unique id of the desktop"/>
+    </event>
+
+    <event name="name">
+      <description summary="virtual desktop name">
+        The name property provides a human readable description for the virtual
+        desktop. It can change during the lifetime of the desktop.
+      </description>
+      <arg name="name" type="string" summary="human readable name for the desktop"/>
+    </event>
+
+    <event name="active">
+      <description summary="the desktop has become either active or inactive">
+        The virtual desktop has become active or inactive.
+
+        The compositor may support either one virtual desktop active at a time,
+        or other combinations such as one virtual desktop active per screen.
+      </description>
+      <arg name="active" type="uint" summary="1 is active, 0 is inactive"/>
+    </event>
+
+    <event name="position">
+      <description summary="virtual desktop position">
+        The position of the virtual desktop in the desktop list. The virtual
+        desktop position is in the [0, N - 1] range, where N is the number of
+        virtual desktops.
+      </description>
+      <arg name="index" type="uint" summary="virtual desktop position"/>
+    </event>
+  </interface>
+</protocol>
