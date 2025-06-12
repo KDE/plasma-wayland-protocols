@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<protocol name="kde_screen_edge_v2">
+  <copyright>
+    SPDX-FileCopyrightText: 2025 Vlad Zahorodnii
+
+    SPDX-License-Identifier: MIT-CMU
+  </copyright>
+
+  <interface name="kde_screen_edge_manager_v2" version="1">
+    <description summary="screen edge manager">
+      This interface allows clients to associate actions with screen edges. For
+      example, showing a surface by moving the pointer to a screen edge.
+
+      Potential ways to trigger the screen edge are subject to compositor
+      policies. As an example, the compositor may consider the screen edge to be
+      triggered if the pointer hits its associated screen border. Other ways may
+      include using touchscreen or touchpad gestures.
+
+      Warning! The protocol described in this file is a desktop environment
+      implementation detail. Regular clients must not use this protocol.
+      Backward incompatible changes may be added without bumping the major
+      version of the extension.
+    </description>
+
+    <enum name="error">
+      <entry name="invalid_border" value="0"
+             summary="the specified border value is invalid"/>
+      <entry name="invalid_role" value="1"
+             summary="the surface has invalid role"/>
+      <entry name="already_constructed" value="2"
+             summary="the surface already has a screen edge"/>
+    </enum>
+
+    <request name="destroy" type="destructor">
+      <description summary="destroy the screen edge manager">
+        Destroy the screen edge manager. This doesn't destroy objects created
+        with this manager.
+      </description>
+    </request>
+
+    <enum name="border">
+      <description summary="screen border">
+        These values describe possible screen borders.
+      </description>
+      <entry name="top" value="1" summary="top screen edge"/>
+      <entry name="bottom" value="2" summary="bottom screen edge"/>
+      <entry name="left" value="3" summary="left screen edge"/>
+      <entry name="right" value="4" summary="right screen edge"/>
+    </enum>
+
+    <request name="get_screen_edge">
+      <description summary="reserve a screen edge">
+        Create a new auto hide screen edge object associated with the specified
+        surface and the border.
+
+        After creating a kde_screen_edge_v2 object, the surface will be hidden.
+
+        The "border" argument must be a valid enum entry, otherwise the
+        invalid_border protocol error is raised.
+
+        The invalid_role protocol error will be raised if the specified surface
+        does not have layer_surface role.
+      </description>
+      <arg name="id" type="new_id" interface="kde_screen_edge_v2"
+           summary="the new screen edge"/>
+      <arg name="border" type="uint" enum="border"
+           summary="the associated screen border"/>
+      <arg name="surface" type="object" interface="wl_surface"
+           summary="the surface"/>
+    </request>
+  </interface>
+
+  <interface name="kde_screen_edge_v2" version="1">
+    <description summary="auto hide screen edge">
+      The screen edge object allows to hide the surface and make it visible by
+      triggering the screen edge. The screen edge is active and the surface is
+      hidden by default.
+
+      This interface can be used to implement user interface elements such as
+      auto-hide panels or docks.
+
+      If the screen edge has been triggered or the kde_screen_edge_manager_v2.show
+      request has been called, the associated surface will be made visible.
+
+      The surface will be hidden based on compositor policies or if the
+      client calls kde_screen_edge_v2.hide. The compositor may employ different
+      strategies to hide the surface, for example it may hide the surface if
+      the pointer leaves it or the user taps the touchscreen outside the surface.
+    </description>
+
+    <request name="destroy" type="destructor">
+      <description summary="destroy the screen edge object">
+        Destroy the screen edge object. If the associated surface is hidden, it
+        will be made visible on the screen.
+      </description>
+    </request>
+
+    <request name="show">
+      <description summary="show the surface">
+        Asks the compositor to show the associated surface. The compositor may or
+        may not show the surface.
+      </description>
+    </request>
+
+    <request name="hide">
+      <description summary="hide the surface">
+        Asks the compositor to hide the associated surface. The compositor may or
+        may not hide the surface.
+      </description>
+    </request>
+  </interface>
+</protocol>
