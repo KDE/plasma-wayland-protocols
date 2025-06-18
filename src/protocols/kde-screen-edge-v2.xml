@@ -53,7 +53,8 @@
         Create a new auto hide screen edge object associated with the specified
         surface and the border.
 
-        After creating a kde_screen_edge_v2 object, the surface will be hidden.
+        The surface visibility will not be changed after creating the screen
+        edge object.
 
         The "border" argument must be a valid enum entry, otherwise the
         invalid_border protocol error is raised.
@@ -73,17 +74,16 @@
   <interface name="kde_screen_edge_v2" version="1">
     <description summary="auto hide screen edge">
       The screen edge object allows to hide the surface and make it visible by
-      triggering the screen edge. The screen edge is active and the surface is
-      hidden by default.
+      triggering the screen edge. The screen edge is unreserved by default.
 
       This interface can be used to implement user interface elements such as
       auto-hide panels or docks.
 
-      If the screen edge has been triggered or the kde_screen_edge_manager_v2.show
+      If the screen edge has been triggered or the kde_screen_edge_manager_v2.unreserve
       request has been called, the associated surface will be made visible.
 
       The surface will be hidden based on compositor policies or if the
-      client calls kde_screen_edge_v2.hide. The compositor may employ different
+      client calls kde_screen_edge_v2.reserve. The compositor may employ different
       strategies to hide the surface, for example it may hide the surface if
       the pointer leaves it or the user taps the touchscreen outside the surface.
     </description>
@@ -95,17 +95,23 @@
       </description>
     </request>
 
-    <request name="show">
-      <description summary="show the surface">
-        Asks the compositor to show the associated surface. The compositor may or
-        may not show the surface.
+    <request name="reserve">
+      <description summary="reserve the screen edge">
+        Asks the compositor to reserve the screen edge. The compositor may or
+        may not hide the surface.
+
+        While the screen edge is reserved, the compositor will hide and show the
+        surface as appropriate.
       </description>
     </request>
 
-    <request name="hide">
-      <description summary="hide the surface">
-        Asks the compositor to hide the associated surface. The compositor may or
-        may not hide the surface.
+    <request name="unreserve">
+      <description summary="unreserve the screen edge">
+        Asks the compositor to unreserve the screen edge. If the surface is
+        hidden, it will be made visible on the screen.
+
+        A client may want to unreserve the screen edge if the associated surface
+        should be temporarily kept visible even after it loses pointer focus.
       </description>
     </request>
   </interface>
