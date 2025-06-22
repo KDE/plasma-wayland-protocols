@@ -13,11 +13,12 @@
             version of the extension.
         </description>
 
-        <enum name="pointer">
+        <enum name="pointer" bitfield="true">
             <description summary="Stream consumer attachment attributes" />
             <entry name="hidden" value="1" summary="No cursor"/>
             <entry name="embedded" value="2" summary="Render the cursor on the stream"/>
             <entry name="metadata" value="4" summary="Send metadata about where the cursor is through PipeWire"/>
+            <entry name="highlight_clicks_recommended" value="8" summary="Recommend that clicks should be highlighted if relevant setting is enabled"/>
         </enum>
 
         <request name="stream_output">
