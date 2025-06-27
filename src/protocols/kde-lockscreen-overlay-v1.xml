@@ -10,7 +10,7 @@
       <description summary="Allow surfaces over the lockscreen">
         Allows a client to request a surface to be visible when the system is locked.
 
-        This is meant to be used for specific high urgency cases like phone calls or alarms.
+        This is meant to be used for specific high urgency cases like phone calls or alarms, or for overlaying system components such as panels.
 
         Warning! The protocol described in this file is a desktop environment
         implementation detail. Regular clients must not use this protocol.
@@ -25,6 +25,8 @@
       <request name="allow">
         <description summary="Tell about which surface could be raised above the lockscreen">
           Informs the compositor that the surface could be shown when the screen is locked. This request should be called while the surface is unmapped.
+
+          This needs to be called again if the associated surface role is recreated.
         </description>
         <arg name="surface" type="object" interface="wl_surface"/>
     </request>
