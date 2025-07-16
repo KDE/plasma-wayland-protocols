@@ -11,7 +11,7 @@
     SPDX-License-Identifier: MIT-CMU
     ]]></copyright>
 
-<interface name="kde_output_management_v2" version="16">
+<interface name="kde_output_management_v2" version="17">
   <description summary="configuration of server outputs through clients">
     This interface enables clients to set properties of output devices for screen
     configuration purposes via the server. To this end output devices are referenced
@@ -66,7 +66,7 @@
 
 </interface>
 
-<interface name="kde_output_configuration_v2" version="16">
+<interface name="kde_output_configuration_v2" version="17">
   <description summary="configure single output devices">
     outputconfiguration is a client-specific resource that can be used to ask
     the server to apply changes to available output devices.
@@ -390,6 +390,15 @@
     </description>
     <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
     <arg name="policy" type="uint" enum="edr_policy"/>
+  </request>
+
+  <request name="set_sharpness" since="17">
+    <description summary="sharpness strength">
+        This is the sharpness modifier of the output.
+        0 is sharpness disabled and 10000 is the maximum sharpness
+    </description>
+    <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
+    <arg name="sharpness" type="uint" summary="sharpness in 0-10000"/>
   </request>
 </interface>
 </protocol>

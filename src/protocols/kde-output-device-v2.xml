@@ -11,7 +11,7 @@
     ]]></copyright>
 
 
-  <interface name="kde_output_device_v2" version="16">
+  <interface name="kde_output_device_v2" version="17">
     <description summary="output configuration representation">
       An output device describes a display device available to the compositor.
       output_device is similar to wl_output, but focuses on output
@@ -238,6 +238,8 @@
              summary="if this outputdevice supports setting max bpc"/>
       <entry name="edr" value="0x800" since="16"
              summary="if this outputdevice supports EDR"/>
+      <entry name="sharpness" value="0x1000" since="17"
+             summary="if this outputdevice supports the sharpness setting"/>
     </enum>
 
     <event name="capabilities">
@@ -458,6 +460,14 @@
         usage.
       </description>
       <arg name="policy" type="uint" enum="edr_policy"/>
+    </event>
+
+    <event name="sharpness" since="17">
+      <description summary="sharpness strength">
+        This is the sharpness modifier of the output.
+        0 is sharpness disabled and 10000 is the maximum sharpness
+      </description>
+      <arg name="sharpness" type="uint" summary="sharpness in 0-10000"/>
     </event>
   </interface>
 
