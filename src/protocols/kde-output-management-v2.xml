@@ -11,7 +11,7 @@
     SPDX-License-Identifier: MIT-CMU
     ]]></copyright>
 
-<interface name="kde_output_management_v2" version="17">
+<interface name="kde_output_management_v2" version="18">
   <description summary="configuration of server outputs through clients">
     This interface enables clients to set properties of output devices for screen
     configuration purposes via the server. To this end output devices are referenced
@@ -66,7 +66,7 @@
 
 </interface>
 
-<interface name="kde_output_configuration_v2" version="17">
+<interface name="kde_output_configuration_v2" version="18">
   <description summary="configure single output devices">
     outputconfiguration is a client-specific resource that can be used to ask
     the server to apply changes to available output devices.
@@ -399,6 +399,24 @@
     </description>
     <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
     <arg name="sharpness" type="uint" summary="sharpness in 0-10000"/>
+  </request>
+
+  <enum name="abm_level" since="18">
+    <description summary="allowed level of adaptive backlight modulation"/>
+    <entry name="off" value="0"/>
+    <entry name="min" value="1"/>
+    <entry name="min_bias" value="2"/>
+    <entry name="max_bias" value="3"/>
+    <entry name="max" value="4"/>
+  </enum>
+
+  <request name="set_abm_level" since="18">
+    <description summary="set the allowed level of adaptive backlight modulation">
+      Adaptive backlight modulation is a feature that reduces the backlight
+      and increases contrast of colors on the screen to improve power usage.
+    </description>
+    <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
+    <arg name="level" type="uint" enum="abm_level"/>
   </request>
 </interface>
 </protocol>
