@@ -11,7 +11,7 @@
     ]]></copyright>
 
 
-  <interface name="kde_output_device_v2" version="18">
+  <interface name="kde_output_device_v2" version="19">
     <description summary="output configuration representation">
       An output device describes a display device available to the compositor.
       output_device is similar to wl_output, but focuses on output
@@ -240,6 +240,8 @@
              summary="if this outputdevice supports EDR"/>
       <entry name="sharpness" value="0x1000" since="17"
              summary="if this outputdevice supports the sharpness setting"/>
+      <entry name="custom_modes" value="0x2000" since="18"
+             summary="if this outputdevice supports custom modes"/>
     </enum>
 
     <event name="capabilities">
@@ -485,7 +487,7 @@
     </event>
   </interface>
 
-  <interface name="kde_output_device_mode_v2" version="1">
+  <interface name="kde_output_device_mode_v2" version="19">
     <description summary="output mode">
       This object describes an output mode.
 
@@ -528,6 +530,19 @@
         event, so it will become invalid and the client should release any
         resources associated with it.
       </description>
+    </event>
+
+    <enum name="flags">
+      <description summary="mode flags"/>
+      <entry name="custom" value="0x1"/>
+      <entry name="reduced_blanking" value="0x2"/>
+    </enum>
+
+    <event name="flags" since="19">
+      <description summary="mode flags">
+        This event describes the mode's flags.
+      </description>
+      <arg name="flags" type="uint" enum="flags"/>
     </event>
   </interface>
 
