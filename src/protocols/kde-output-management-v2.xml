@@ -11,7 +11,7 @@
     SPDX-License-Identifier: MIT-CMU
     ]]></copyright>
 
-<interface name="kde_output_management_v2" version="17">
+<interface name="kde_output_management_v2" version="18">
   <description summary="configuration of server outputs through clients">
     This interface enables clients to set properties of output devices for screen
     configuration purposes via the server. To this end output devices are referenced
@@ -64,9 +64,13 @@
     <arg name="id" type="new_id" interface="kde_output_configuration_v2"/>
   </request>
 
+  <request name="create_mode_list">
+    <arg name="id" type="new_id" interface="kde_mode_list_v1"/>
+  </request>
+
 </interface>
 
-<interface name="kde_output_configuration_v2" version="17">
+<interface name="kde_output_configuration_v2" version="18">
   <description summary="configure single output devices">
     outputconfiguration is a client-specific resource that can be used to ask
     the server to apply changes to available output devices.
@@ -400,5 +404,39 @@
     <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
     <arg name="sharpness" type="uint" summary="sharpness in 0-10000"/>
   </request>
+
+  <request name="set_custom_modes" since="18">
+    <description summary="set the custom mode list"/>
+    <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
+    <arg name="modes" type="object" interface="kde_mode_list_v1"/>
+  </request>
 </interface>
+
+<interface name="kde_mode_list_v1" version="18">
+  <description summary="a list of custom modes"/>
+
+  <request name="destroy" type="destructor">
+    <description summary="destroy the mode list object"/>
+  </request>
+
+  <request name="add_mode">
+    <description summary="Add the current mode configuration to the list"/>
+  </request>
+
+  <request name="set_resolution">
+    <arg name="width" type="uint"/>
+    <arg name="height" type="uint"/>
+  </request>
+
+  <request name="set_refresh_rate">
+    <arg name="rate" type="uint" summary="in milliHz"/>
+  </request>
+
+  <request name="set_reduced_blanking">
+    <arg name="reduced" type="uint"
+         summary="1 for reduced blanking, 0 for normal vblank duration"/>
+  </request>
+
+</interface>
+
 </protocol>
