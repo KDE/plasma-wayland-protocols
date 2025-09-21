@@ -36,8 +36,11 @@ configure_package_config_file("${CMAKE_CURRENT_SOURCE_DIR}/PlasmaWaylandProtocol
                               )
 ecm_setup_version(PROJECT VARIABLE_PREFIX PLASMA_WAYLAND_PROTOCOLS
                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/plasma_wayland_protocols_version.h"
-                        PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/PlasmaWaylandProtocolsConfigVersion.cmake"
-                        SOVERSION 5)
+                        SOVERSION 5
+)
+write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/PlasmaWaylandProtocolsConfigVersion.cmake"
+                                 COMPATIBILITY AnyNewerVersion
+)
 
 install(FILES  "${CMAKE_CURRENT_BINARY_DIR}/PlasmaWaylandProtocolsConfig.cmake"
                "${CMAKE_CURRENT_BINARY_DIR}/PlasmaWaylandProtocolsConfigVersion.cmake"
