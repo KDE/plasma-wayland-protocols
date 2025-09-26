@@ -27,7 +27,7 @@ if (BUILD_TESTING)
 endif()
 
 # create a Config.cmake and a ConfigVersion.cmake file and install them
-set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/PlasmaWaylandProtocols")
+set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_DATAROOTDIR}/cmake/PlasmaWaylandProtocols")
 
 configure_package_config_file("${CMAKE_CURRENT_SOURCE_DIR}/PlasmaWaylandProtocolsConfig.cmake.in"
                               "${CMAKE_CURRENT_BINARY_DIR}/PlasmaWaylandProtocolsConfig.cmake"
@@ -40,6 +40,7 @@ ecm_setup_version(PROJECT VARIABLE_PREFIX PLASMA_WAYLAND_PROTOCOLS
 )
 write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/PlasmaWaylandProtocolsConfigVersion.cmake"
                                  COMPATIBILITY AnyNewerVersion
+                                 ARCH_INDEPENDENT
 )
 
 install(FILES  "${CMAKE_CURRENT_BINARY_DIR}/PlasmaWaylandProtocolsConfig.cmake"
