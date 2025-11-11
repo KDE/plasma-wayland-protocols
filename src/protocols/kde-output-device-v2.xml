@@ -242,6 +242,7 @@
              summary="if this outputdevice supports the sharpness setting"/>
       <entry name="custom_modes" value="0x2000" since="18"
              summary="if this outputdevice supports custom modes"/>
+      <entry name="auto_brightness" value = "0x4000" since="19"/>
     </enum>
 
     <event name="capabilities">
@@ -484,6 +485,11 @@
         mirroring another screen.
       </description>
       <arg name="priority" type="uint" summary="priority"/>
+    </event>
+
+    <event name="auto_brightness" since="19">
+      <description summary="whether or not automatic brightness is enabled"/>
+      <arg name="enabled" type="uint" summary="1 for enabled, 0 for disabled"/>
     </event>
   </interface>
 
