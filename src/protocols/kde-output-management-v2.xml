@@ -213,9 +213,14 @@
 
   <request name="set_priority" since="3">
     <description summary="Set the order of outputs">
-      The order of outputs can be used to assign desktop environment components to a specific screen,
-      see kde_output_order_v1 for details. The priority is 1-based for outputs that will be enabled after
-      this changeset is applied, all outputs that are disabled need to have the index set to zero.
+      Set the position of the output in the output order list, with lower values
+      being earlier in the list. There's no specific value the list has to start
+      at, this value is only used in sorting outputs.
+
+      The order of outputs can be used to assign desktop environment components
+      to a specific screen, see kde_output_order_v1 and kde-output-device-v2 for
+      details. Note that for consistent behavior, the priority value needs to be
+      unique among all enabled outputs.
     </description>
     <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice the index applies to" />
     <arg name="priority" type="uint" summary="the priority of the output" />
