@@ -11,7 +11,7 @@
     ]]></copyright>
 
 
-  <interface name="kde_output_device_v2" version="17">
+  <interface name="kde_output_device_v2" version="18">
     <description summary="output configuration representation">
       An output device describes a display device available to the compositor.
       output_device is similar to wl_output, but focuses on output
@@ -468,6 +468,20 @@
         0 is sharpness disabled and 10000 is the maximum sharpness
       </description>
       <arg name="sharpness" type="uint" summary="sharpness in 0-10000"/>
+    </event>
+
+    <event name="priority" since="18">
+      <description summary="output priority">
+        Describes the position of the output in the output order list,
+        with lower values being earlier in the list. There's no specific
+        value the list has to start at, this value is only used in sorting
+        outputs.
+
+        Note that the output order protocol is not sufficient for this,
+        as an output may not be in the output order if it's disabled or
+        mirroring another screen.
+      </description>
+      <arg name="priority" type="uint" summary="priority"/>
     </event>
   </interface>
 
