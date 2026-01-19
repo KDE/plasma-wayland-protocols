@@ -6,16 +6,23 @@
 
     SPDX-License-Identifier: LGPL-2.1-or-later
   ]]></copyright>
-  <interface name="org_kde_kwin_contrast_manager" version="2">
+  <interface name="org_kde_kwin_contrast_manager" version="3">
       <request name="create">
           <arg name="id" type="new_id" interface="org_kde_kwin_contrast"/>
           <arg name="surface" type="object" interface="wl_surface"/>
       </request>
-      <request name="unset">
+      <request name="unset" deprecated-since="3">
+          <description summary="remove contrast effect">
+            Removes the contrast effect. The change will take effect after
+            wl_surface.commit.
+
+            Since version 3, this request is deprecated in favor of
+            org_kde_kwin_contrast.release.
+          </description>
           <arg name="surface" type="object" interface="wl_surface"/>
       </request>
   </interface>
-  <interface name="org_kde_kwin_contrast" version="2">
+  <interface name="org_kde_kwin_contrast" version="3">
       <request name="commit">
       </request>
       <request name="set_region">
@@ -31,7 +38,10 @@
         <arg name="saturation" type="fixed"/>
       </request>
       <request name="release" type="destructor">
-        <description summary="release the contrast object"/>
+        <description summary="remove the contrast effect">
+          Removes the contrast effect. The change will take effect after
+          wl_surface.commit.
+        </description>
       </request>
 
       <request name="set_frost" since="2">
