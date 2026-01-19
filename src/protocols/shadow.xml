@@ -5,12 +5,18 @@
 
     SPDX-License-Identifier: LGPL-2.1-or-later
   ]]></copyright>
-  <interface name="org_kde_kwin_shadow_manager" version="2">
+  <interface name="org_kde_kwin_shadow_manager" version="3">
       <request name="create">
           <arg name="id" type="new_id" interface="org_kde_kwin_shadow"/>
           <arg name="surface" type="object" interface="wl_surface"/>
       </request>
-      <request name="unset">
+      <request name="unset" deprecated-since="3">
+          <description summary="remove the drop shadow">
+              Removes the drop shadow.
+
+              Since version 3, this request is deprecated in favor of
+              org_kde_kwin_shadow.destroy.
+          </description>
           <arg name="surface" type="object" interface="wl_surface"/>
       </request>
       <request name="destroy" type="destructor" since="2">
@@ -19,7 +25,7 @@
           </description>
       </request>
   </interface>
-  <interface name="org_kde_kwin_shadow" version="2">
+  <interface name="org_kde_kwin_shadow" version="3">
       <request name="commit">
       </request>
       <request name="attach_left">
@@ -60,10 +66,8 @@
       </request>
       <request name="destroy" type="destructor" since="2">
           <description summary="Destroy the org_kde_kwin_shadow">
-              Destroy the org_kde_kwin_shadow object. If the org_kde_kwin_shadow is
-              still set on a wl_surface the shadow will be immediately removed.
-              Prefer to first call the request unset on the org_kde_kwin_shadow_manager and
-              commit the wl_surface to apply the change.
+              Destroy the org_kde_kwin_shadow object. The change will take
+              effect after wl_surface.commit.
           </description>
       </request>
   </interface>
