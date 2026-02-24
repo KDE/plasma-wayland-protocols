@@ -8,7 +8,6 @@ install(FILES
     protocols/contrast.xml
     protocols/dpms.xml
     protocols/fake-input.xml
-    protocols/fullscreen-shell.xml
     protocols/idle.xml
     protocols/kde-external-brightness-v1.xml
     protocols/kde-lockscreen-overlay-v1.xml
