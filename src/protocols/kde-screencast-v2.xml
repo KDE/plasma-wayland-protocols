@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<protocol name="kde_screencast_unstable_v2">
+    <copyright><![CDATA[
+        SPDX-FileCopyrightText: 2020-2021 Aleix Pol Gonzalez <aleixpol@kde.org>
+        SPDX-FileCopyrightText: 2026 David Redondo <kde@david-redondo.de>
+
+    SPDX-License-Identifier: LGPL-2.1-or-later
+    ]]></copyright>
+    <interface name="kde_screencast_manager_v2" version="1">
+        <description summary="protocol for managing PipeWire feeds of the different displays and windows">
+            Warning! The protocol described in this file is a desktop environment
+            implementation detail. Regular clients must not use this protocol.
+            Backward incompatible changes may be added without bumping the major
+            version of the extension.
+        </description>
+        <enum name="pointer_mode">
+            <description summary=""/>
+            <entry name="hidden" value="1" summary="no cursor"/>
+            <entry name="embedded" value="2" summary="Render the cursor on the stream"/>
+            <entry name="metadata" value="4" summary="Send metadata about where the cursor is through PipeWire"/>
+        </enum>
+        <request name="destroy" type="destructor"/>
+        <request name="stream_output">
+            <description summary="Stream an output"/>
+            <arg name="params" type="new_id" interface="kde_screencast_output_params_v2"/>
+            <arg name="output" type="string" summary="the name of the output to stream"/>
+        </request>
+        <request name="stream_window">
+            <description summary="stream a single window including its popups"/>
+            <arg name="params" type="new_id" interface="kde_screencast_window_params_v2"/>
+            <arg name="window_uuid" type="string" summary="window identifier"/>
+        </request>
+        <request name="stream_region">
+            <description summary="stream a region of the entire workspace"/>
+            <arg name="params" type="new_id" interface="kde_screencast_region_params_v2"/>
+            <arg name="x" type="int" summary="X coordinate of the top left corner in logical coordinates"/>
+            <arg name="y" type="int" summary="Y coordinate of the top left corner in logical coordinates"/>
+            <arg name="width" type="uint" summary="logical with of the region"/>
+            <arg name="height" type="uint" summary="logical width of the region"/>
+        </request>
+        <request name="stream_virtual_output">
+            <description summary="Create and stream a new virtual output"/>
+            <arg name="params" type="new_id" interface="kde_screencast_virtual_output_params_v2"/>
+            <arg name="width" type="int" summary="logical width of the output"/>
+            <arg name="height" type="int" summary="logical height of the output"/>
+            <arg name="scale" type="fixed" summary="output scale "/>
+        </request>
+    </interface>
+    <interface name="kde_screencast_output_params_v2" version="1">
+        <request name="create_stream" type="destructor">
+            <arg name="stream" type="new_id" interface="kde_screencast_stream_v2"/>
+        </request>
+        <request name="set_pointer_mode">
+            <description summary="set the pointer mode to use for the stream">
+               If not provided "embedded" is used.
+            </description>
+            <arg name="pointer_mode" type="uint" enum="pointer_mode" summary="the pointer mode"/>
+        </request>
+    </interface>
+    <interface name="kde_screencast_window_params_v2" version="1">
+        <request name="create_stream" type="destructor">
+            <arg name="stream" type="new_id" interface="kde_screencast_stream_v2"/>
+        </request>
+        <request name="set_pointer_mode">
+            <description summary="set the pointer mode to use for the stream">
+               If not provided "embedded" is used.
+            </description>
+            <arg name="pointer_mode" type="uint" enum="pointer_mode" summary="the pointer mode"/>
+        </request>
+    </interface>
+    <interface name="kde_screencast_region_params_v2" version="1">
+        <request name="create_stream" type="destructor">
+            <arg name="stream" type="new_id" interface="kde_screencast_stream_v2"/>
+        </request>
+        <request name="set_pointer_mode">
+            <description summary="set the pointer mode to use for the stream">
+               If not provided "embedded" is used.
+            </description>
+            <arg name="pointer_mode" type="uint" enum="pointer_mode" summary="the pointer mode"/>
+        </request>
+        <request name="set_scale">
+            <description summary="set the scale to use for this stream">
+                If not provided or set to 0, the compositor will choose a suitable scale factor.
+            </description>
+            <arg name="scale" type="fixed" summary="scale factor"/>
+        </request>
+    </interface>
+    <interface name="kde_screencast_virtual_output_params_v2" version="1">
+        <request name="create_stream" type="destructor">
+            <arg name="stream" type="new_id" interface="kde_screencast_stream_v2"/>
+        </request>
+        <request name="set_pointer_mode">
+            <description summary="set the pointer mode to use for the stream">
+               If not provided "embedded" is used.
+            </description>
+            <arg name="pointer_mode" type="uint" enum="pointer_mode" summary="the pointer mode"/>
+        </request>
+        <request name="set_name">
+            <description summary="set the name of the created output"/>
+            <arg name="name" type="string"/>
+        </request>
+        <request name="set_description">
+            <description summary="set the user visible description of the created output"/>
+            <arg name="description" type="string"/>
+        </request>
+    </interface>
+    <interface name="kde_screencast_stream_v2" version="2">
+        <request name="destroy" type="destructor"/>
+        <event name="closed">
+            <description summary="Notifies that the server has stopped the stream. Clients should now delete the stream."/>
+        </event>
+        <event name="created">
+            <description summary="Notifies about a pipewire feed being created"/>
+            <arg name="node" type="uint" summary="deprecated, only provided for compatibility"/>
+            <arg name="object_serial_hi" type="uint" summary="high bits of the pipewire object serial"/>
+            <arg name="object_serial_low" type="uint" summary="low bits of the pipewire object serial"/>
+        </event>
+        <event name="failed">
+            <description summary="Creation of the stream failed. Clients should noew delete the stream."/>
+            <arg name="error" type="string" summary="A human readable translated error message."/>
+        </event>
+    </interface>
+</protocol>
