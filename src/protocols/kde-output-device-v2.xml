@@ -10,7 +10,7 @@
     SPDX-License-Identifier: MIT-CMU
     ]]></copyright>
 
-  <interface name="kde_output_device_registry_v2" version="21">
+  <interface name="kde_output_device_registry_v2" version="22">
     <description summary="output devices">
       This interface can be used to list output devices.
 
@@ -52,7 +52,7 @@
     </event>
   </interface>
 
-  <interface name="kde_output_device_v2" version="21">
+  <interface name="kde_output_device_v2" version="22">
     <description summary="output configuration representation">
       An output device describes a display device available to the compositor.
       output_device is similar to wl_output, but focuses on output
@@ -284,6 +284,8 @@
       <entry name="custom_modes" value="0x2000" since="18"
              summary="if this outputdevice supports custom modes"/>
       <entry name="auto_brightness" value = "0x4000" since="19"/>
+      <entry name="hdr_icc_profile" value="0x8000" since="22"
+             summary="if this outputdevice supports HDR ICC profiles"/>
     </enum>
 
     <event name="capabilities">
@@ -379,7 +381,7 @@
     </event>
 
     <event name="icc_profile_path" since="5">
-      <description summary="describes when auto rotate is used"/>
+      <description summary="describes the path to the ICC profile used in SDR mode"/>
       <arg name="profile_path" type="string"/>
     </event>
 
@@ -413,7 +415,7 @@
     </enum>
 
     <event name="color_profile_source" since="7">
-      <description summary="describes which source the compositor uses for the color profile on an output"/>
+      <description summary="describes which source the compositor uses for the color profile on an output in SDR mode"/>
       <arg name="source" type="uint" enum="color_profile_source"/>
     </event>
 
@@ -547,9 +549,19 @@
         request after receiving this event.
       </description>
     </event>
+
+    <event name="hdr_icc_profile_path" since="22">
+      <description summary="describes the path to the ICC profile used in HDR mode"/>
+      <arg name="profile_path" type="string"/>
+    </event>
+
+    <event name="hdr_color_profile_source" since="22">
+      <description summary="describes which source the compositor uses for the color profile on an output in HDR mode"/>
+      <arg name="source" type="uint" enum="color_profile_source"/>
+    </event>
   </interface>
 
-  <interface name="kde_output_device_mode_v2" version="21">
+  <interface name="kde_output_device_mode_v2" version="22">
     <description summary="output mode">
       This object describes an output mode.
 

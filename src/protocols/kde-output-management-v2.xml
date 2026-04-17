@@ -11,7 +11,7 @@
     SPDX-License-Identifier: MIT-CMU
     ]]></copyright>
 
-<interface name="kde_output_management_v2" version="19">
+<interface name="kde_output_management_v2" version="20">
   <description summary="configuration of server outputs through clients">
     This interface enables clients to set properties of output devices for screen
     configuration purposes via the server. To this end output devices are referenced
@@ -74,7 +74,7 @@
 
 </interface>
 
-<interface name="kde_output_configuration_v2" version="19">
+<interface name="kde_output_configuration_v2" version="20">
   <description summary="configure single output devices">
     outputconfiguration is a client-specific resource that can be used to ask
     the server to apply changes to available output devices.
@@ -273,7 +273,7 @@
   </request>
 
   <request name="set_icc_profile_path" since="6">
-    <description summary="change the used icc profile"/>
+    <description summary="change the used icc profile for SDR mode"/>
     <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
     <arg name="profile_path" type="string"/>
   </request>
@@ -303,7 +303,7 @@
   </enum>
 
   <request name="set_color_profile_source" since="8">
-    <description summary="which source the compositor should use for the color profile on an output"/>
+    <description summary="which source the compositor should use for the color profile on an output in SDR mode"/>
     <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
     <arg name="color_profile_source" type="uint" enum="color_profile_source" summary="the color profile source"/>
   </request>
@@ -435,9 +435,21 @@
     <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
     <arg name="enabled" type="uint" summary="1 for enabled, 0 for disabled"/>
   </request>
+
+  <request name="set_hdr_icc_profile_path" since="20">
+    <description summary="change the used icc profile for HDR mode"/>
+    <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
+    <arg name="profile_path" type="string"/>
+  </request>
+
+  <request name="set_hdr_color_profile_source" since="20">
+    <description summary="which source the compositor should use for the color profile on an output in HDR mode"/>
+    <arg name="outputdevice" type="object" interface="kde_output_device_v2" summary="outputdevice this setting applies to"/>
+    <arg name="color_profile_source" type="uint" enum="color_profile_source" summary="the color profile source"/>
+  </request>
 </interface>
 
-<interface name="kde_mode_list_v2" version="18">
+<interface name="kde_mode_list_v2" version="20">
   <description summary="a list of custom modes">
     This list is populated by first setting each relevant property,
     and then calling add_mode to add a mode with these properties.
