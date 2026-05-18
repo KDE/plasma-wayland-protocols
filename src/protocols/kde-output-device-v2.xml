@@ -10,7 +10,7 @@
     SPDX-License-Identifier: MIT-CMU
     ]]></copyright>
 
-  <interface name="kde_output_device_registry_v2" version="23">
+  <interface name="kde_output_device_registry_v2" version="24">
     <description summary="output devices">
       This interface can be used to list output devices.
 
@@ -52,7 +52,7 @@
     </event>
   </interface>
 
-  <interface name="kde_output_device_v2" version="23">
+  <interface name="kde_output_device_v2" version="24">
     <description summary="output configuration representation">
       An output device describes a display device available to the compositor.
       output_device is similar to wl_output, but focuses on output
@@ -571,7 +571,7 @@
     </event>
   </interface>
 
-  <interface name="kde_output_device_mode_v2" version="22">
+  <interface name="kde_output_device_mode_v2" version="24">
     <description summary="output mode">
       This object describes an output mode.
 
@@ -627,6 +627,26 @@
         This event describes the mode's flags.
       </description>
       <arg name="flags" type="uint" enum="flags"/>
+    </event>
+
+    <event name="cvt" since="24">
+      <description summary="cvt timings">
+        This event describes the CVT timings associated with the mode.
+
+        If an output mode has no CVT timings, this event will not be sent.
+      </description>
+      <arg name="dot_clock" type="uint" summary="pixel clock in kHz"/>
+      <arg name="hdisplay" type="uint" summary="horizontal display size"/>
+      <arg name="hsync_start" type="uint" summary="horizontal sync start"/>
+      <arg name="hsync_end" type="uint" summary="horizontal sync end"/>
+      <arg name="htotal" type="uint" summary="horizontal total size"/>
+      <arg name="hskew" type="uint" summary="horizontal skew"/>
+      <arg name="vdisplay" type="uint" summary="vertical display size"/>
+      <arg name="vsync_start" type="uint" summary="vertical sync start"/>
+      <arg name="vsync_end" type="uint" summary="vertical sync end"/>
+      <arg name="vtotal" type="uint" summary="vertical total size"/>
+      <arg name="vscan" type="uint" summary="vertical scan"/>
+      <arg name="flags" type="uint" summary="flags, see DRM_MODE_FLAG_*"/>
     </event>
   </interface>
 
