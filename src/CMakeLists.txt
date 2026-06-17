@@ -15,6 +15,7 @@ install(FILES
     protocols/kde-output-device-v2.xml
     protocols/kde-output-management-v2.xml
     protocols/kde-output-order-v1.xml
+    protocols/kde-overlay-shell-v1.xml
     protocols/kde-primary-output-v1.xml
     protocols/kde-screen-edge-v1.xml
     protocols/keystate.xml

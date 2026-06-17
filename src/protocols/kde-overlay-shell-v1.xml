@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<protocol name="kde_overlay_shell_v1">
+  <copyright>
+    Copyright 2026 Xaver Hugl
+
+    Permission is hereby granted, free of charge, to any person obtaining a
+    copy of this software and associated documentation files (the "Software"),
+    to deal in the Software without restriction, including without limitation
+    the rights to use, copy, modify, merge, publish, distribute, sublicense,
+    and/or sell copies of the Software, and to permit persons to whom the
+    Software is furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+    THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.
+  </copyright>
+
+  <description summary="Overlay on top of other windows">
+    This protocol allows the client to create "overlay" surfaces that are
+    on top of xdg_toplevel windows of other clients.
+
+    The key words "must", "must not", "required", "shall", "shall not",
+    "should", "should not", "recommended",  "may", and "optional" in this
+    document are to be interpreted as described in IETF RFC 2119.
+
+    Warning! The protocol described in this file is currently in the
+    testing phase. Backward compatible changes may be added together with
+    the corresponding interface version bump. Backward incompatible changes
+    can only be done by creating a new major version of the extension.
+  </description>
+
+  <interface name="kde_overlay_shell_manager_v1" version="1">
+    <description summary="overlay shell global">
+      This interface is used to create overlay surfaces.
+    </description>
+
+    <request name="destroy" type="destructor">
+      <description summary="destroy the overlay shell manager object">
+        Destroys the manager object. Objects created by this manager are
+        not affected.
+      </description>
+    </request>
+
+    <request name="get_overlay_surface">
+      <description summary="create an overlay surface">
+        Creates an overlay surface attached to the toplevel described by
+        the toplevel handle.
+
+        If the toplevel still exists when the request is processed, the
+        compositor will respond with a configure event on the overlay
+        surface.
+
+        If the toplevel doesn't exist when this request is processed, the
+        compositor will immediately send the kde_overlay_surface_v1.closed
+        event on the newly created object.
+      </description>
+      <arg name="id" type="new_id" interface="kde_overlay_surface_v1"/>
+      <arg name="surface" type="object" interface="wl_surface"/>
+      <arg name="xdg_toplevel_handle" type="string"
+           summary="toplevel handle exported by xdg_foreign_unstable_v2"/>
+    </request>
+
+    <enum name="error">
+      <entry name="role" value="0"
+        summary="given wl_surface already has a role"/>
+    </enum>
+  </interface>
+
+  <interface name="kde_overlay_surface_v1" version="1">
+    <description summary="overlay surface">
+      When this object is created, the compositor immediately sends either
+      the closed event, or a configure event.
+      The client must wait for the first configure event and ack it before
+      it may attach the first buffer.
+
+      The client may attach a null buffer to the surface at any time to hide
+      the overlay, and commit a non-null buffer again to show it again.
+      TODO add a request_configure for this case, so it definitely matches the
+      latest desired size?
+    </description>
+
+    <request name="destroy" type="destructor">
+      <description summary="destroy the overlay surface">
+        This informs the compositor that the lock surface object will no
+        longer be used.
+      </description>
+    </request>
+
+    <event name="closed">
+      <description summary="the overlayed window was closed">
+        The window this overlay was attached to was closed, and the overlay
+        is no longer shown. The client should
+      </description>
+    </event>
+
+    <enum name="error">
+      <entry name="commit_before_first_ack" value="0"
+        summary="surface committed before first ack_configure request"/>
+      <entry name="dimensions_mismatch" value="1"
+        summary="failed to match width or height of configure event"/>
+      <entry name="invalid_serial" value="2"
+        summary="serial provided in ack_configure is invalid"/>
+    </enum>
+
+    <request name="ack_configure">
+      <description summary="ack a configure event">
+        When a configure event is received, once the client commits the surface
+        in response, the client must make an ack_configure request before the
+        commit request, passing along the serial of the configure event.
+
+        If the client receives multiple configure events before it can
+        respond to one, it only has to ack the last configure event.
+
+        A client is not required to commit immediately after sending an
+        ack_configure request - it may even ack_configure several times
+        before its next surface commit.
+
+        A client may send multiple ack_configure requests before committing,
+        but only the last request sent before a commit indicates which
+        configure event the client really is responding to.
+
+        Sending an ack_configure request consumes the configure event
+        referenced by the given serial, as well as all older configure events
+        sent on this object.
+
+        It is a protocol error to issue multiple ack_configure requests
+        referencing the same configure event or to issue an ack_configure
+        request referencing a configure event older than the last configure
+        event acked for a given lock surface.
+      </description>
+      <arg name="serial" type="uint" summary="serial from the configure event"/>
+    </request>
+
+    <event name="configure">
+      <description summary="the client should resize its surface">
+        This event is sent once on binding the interface and may be sent again
+        at the compositor's discretion, for example if the overlayed window
+        is resized. The client should respond as soon as possible with the
+        ack_configure request and matching commit.
+
+        The width and height are in surface-local coordinates and are exact
+        requirements. Failing to match these surface dimensions in the next
+        commit after acking a configure is a protocol error.
+      </description>
+      <arg name="serial" type="uint" summary="serial for use in ack_configure"/>
+      <arg name="width" type="uint"/>
+      <arg name="height" type="uint"/>
+    </event>
+  </interface>
+</protocol>
