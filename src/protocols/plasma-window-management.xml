@@ -6,7 +6,7 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
   ]]></copyright>
 
-  <interface name="org_kde_plasma_window_management" version="20">
+  <interface name="org_kde_plasma_window_management" version="21">
     <description summary="application windows management">
       This interface manages application windows.
       It provides requests to show and hide the desktop and emits
@@ -416,6 +416,15 @@
       <arg name="width" type="uint" summary="width of the org_kde_plasma_window"/>
       <arg name="height" type="uint" summary="height of the org_kde_plasma_window"/>
     </event>
+
+    <event name="resource_class_changed" since="21">
+      <description summary="X11 resource class has changed">
+        This event will be sent when the X11 resource class of the window has changed.
+        This is only set for XWayland windows.
+      </description>
+      <arg name="resource_class" type="string" summary="resource class"/>
+    </event>
+
   </interface>
 
   <interface name="org_kde_plasma_activation_feedback" version="1">
