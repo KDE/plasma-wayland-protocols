@@ -6,7 +6,7 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
   ]]></copyright>
 
-  <interface name="org_kde_plasma_window_management" version="22">
+  <interface name="org_kde_plasma_window_management" version="23">
     <description summary="application windows management">
       This interface manages application windows.
       It provides requests to show and hide the desktop and emits
@@ -127,7 +127,7 @@
     </request>
   </interface>
 
-  <interface name="org_kde_plasma_window" version="21">
+  <interface name="org_kde_plasma_window" version="23">
     <description summary="interface to control application windows">
       Manages and control an application window.
 
@@ -423,6 +423,14 @@
         before or after the initial_state event.
       </description>
     </event>
+
+    <event name="resource_class_changed" since="23">
+      <description summary="X11 resource class has changed">
+        This event will be sent when the X11 resource class of the window has changed.
+        This is only set for XWayland windows.
+      </description>
+      <arg name="resource_class" type="string" summary="resource class"/>
+    </event>
   </interface>
 
   <interface name="org_kde_plasma_activation_feedback" version="1">
@@ -466,7 +474,7 @@
     </event>
   </interface>
 
-  <interface name="org_kde_plasma_stacking_order" version="21">
+  <interface name="org_kde_plasma_stacking_order" version="23">
     <description summary="helper object for sending the stacking order">
       When this object is created, the compositor sends a window event for
       each window in the stacking order, and afterwards sends the done event
