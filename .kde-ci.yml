@@ -1,11 +1,7 @@
 Dependencies:
-- 'on': ['Linux/Qt5', 'FreeBSD/Qt5']
-  'require':
-    'frameworks/extra-cmake-modules': '@stable'
-    'third-party/wayland': '@latest'
 - 'on': ['Linux/Qt6', 'Linux/Qt6Next', 'FreeBSD/Qt6']
   'require':
-    'frameworks/extra-cmake-modules': '@latest-kf6'
+    'frameworks/extra-cmake-modules': 'Frameworks/6.24'
     'third-party/wayland': '@latest'
 
 Options:
