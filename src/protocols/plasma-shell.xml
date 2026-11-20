@@ -6,7 +6,7 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
   ]]></copyright>
 
-  <interface name="org_kde_plasma_shell" version="8">
+  <interface name="org_kde_plasma_shell" version="9">
     <description summary="create shell windows and helpers">
       This interface is used by KF5 powered Wayland shells to communicate with
       the compositor and can only be bound one time.
@@ -31,7 +31,7 @@
     </request>
   </interface>
 
-  <interface name="org_kde_plasma_surface" version="8">
+  <interface name="org_kde_plasma_surface" version="9">
     <description summary="metadata interface">
       An interface that may be implemented by a wl_surface, for
       implementations that provide the shell user interface.
@@ -303,6 +303,20 @@
         Request the initial position of this surface to be under the current
         cursor position. Has to be called before attaching any buffer to this surface.
       </description>
+    </request>
+    <request name="set_popup_origin" since="9">
+      <description summary="set the area the popup opens from">
+        Tells the compositor where the item that opens this surface is, such as
+        an applet's button in a panel, in the same global coordinates as
+        set_position. The compositor may use it to animate the surface out of
+        and back towards that area when it is shown and hidden.
+
+        A width or height of 0 unsets it.
+      </description>
+      <arg name="x" type="int" summary="x coordinate in global space"/>
+      <arg name="y" type="int" summary="y coordinate in global space"/>
+      <arg name="width" type="int" summary="width"/>
+      <arg name="height" type="int" summary="height"/>
     </request>
   </interface>
 </protocol>
